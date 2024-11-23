@@ -1,0 +1,90 @@
+/***** GENERAL *****/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+:root {
+  --light-gray: #D3D3D3; 
+  --medium-gray: #A9A9A9; 
+  --dark-gray: #505050; 
+}
+
+body {
+  background-color: var(--medium-gray);
+}
+
+button {
+  width: 30px;
+  height: 30px;
+  background-color: var(--dark-gray);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--medium-gray);
+}
+
+/***** GAMEPAD *****/
+
+#gamePad {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  width: 80%;
+  margin: 2em auto;
+  padding: 1em;
+  border: solid 3px var(--dark-gray);
+  background-color: var(--light-gray);
+}
+
+/* Display */
+
+#canvas {
+  display: block;
+  width: 330px;
+  margin: 0 auto;
+  border: solid 3px var(--dark-gray);
+  background-color: var(--medium-gray);
+}
+
+/* Right Side */
+
+#rightSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 1em 0.3em;
+}
+
+#xBtn {
+  margin: 0 auto;
+}
+
+#y-aRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#bBtn {
+  margin: 0 auto;
+}
+
+/* Left Side */
+
+#leftSide {
+  display: flex;
+  justify-content: center;
+}
+
+#analog {
+  width: 60PX;
+  height: 60px;
+  margin: auto 0;
+}
