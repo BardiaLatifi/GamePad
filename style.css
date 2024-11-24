@@ -84,7 +84,10 @@ button:hover {
 }
 
 #analog {
-  width: 60PX;
-  height: 60px;
-  margin: auto 0;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  background-color: var(--dark-gray);
+  border-radius: 50%;
+  cursor: pointer;
 }
