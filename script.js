@@ -1,78 +1,77 @@
-// script.js
-const analogStick = document.getElementById('analog');
-const consoleArea = document.getElementById('leftSide');
+// the draggable object
+let dragObj = document.getElementById("analog");
 
-let isDragging = false;
+// setting xOffset and yOffset to 0 to prevent jumping
+let xOffset = 0;
+let yOffset = 0;
 
-// Start dragging
-analogStick.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    moveStick(e);
-});
+// Default position (to be calculated)
+let defaultPosition = { left: 0, top: 0 };
 
-// End dragging
-window.addEventListener('mouseup', () => {
-    isDragging = false;
-    resetStickPosition();
-});
+window.onload = function() {
+  // Set the default position of the analog stick
+  setDefaultPosition();
 
-// Handle mouse movement
-window.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-        moveStick(e);
-    }
-});
-
-// Reset to center when mouse is up
-function resetStickPosition() {
-    // Reset the stick's transform to the center
-    analogStick.style.transform = 'translate(-50%, -50%)'; // Reset to center
-
-    // Optional: Reset the direction values array if needed
-    directionValues = [0, 0, 0, 0]; // Reset direction values to zero
+  document.getElementById("analog").addEventListener("mousedown", startDrag, true);
+  document.getElementById("analog").addEventListener("touchstart", startDrag, true);
+  document.onmouseup = stopDrag;
+  document.ontouchend = stopDrag;
 }
 
-// Move the stick based on mouse position
-function moveStick(e) {
-    const rect = consoleArea.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+// Function to set the default position to the center of leftSide
+function setDefaultPosition() {
+  const leftSide = document.getElementById("leftSide");
+  const leftSideRect = leftSide.getBoundingClientRect(); 
 
-    const mouseX = e.clientX || e.touches[0].clientX;
-    const mouseY = e.clientY || e.touches[0].clientY;
+  // Calculate center position based on leftSide dimensions
+  defaultPosition.left = leftSideRect.left + leftSideRect.width / 2 - 25; // 25 is half of analog div width
+  defaultPosition.top = leftSideRect.top + leftSideRect.height / 2 - 25; // 25 is half of analog div height
 
-    const deltaX = mouseX - centerX;
-    const deltaY = mouseY - centerY;
+  // Apply default position
+  dragObj.style.position = "absolute";
+  dragObj.style.left = defaultPosition.left + "px";
+  dragObj.style.top = defaultPosition.top + "px";
+}
 
-    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    const normalizedDistance = Math.min(distance / 7.5, 1) * 10;
+function startDrag(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  dragObj = e.target;
+  dragObj.style.position = "absolute";
+  const rect = dragObj.getBoundingClientRect();
 
-    // Initialize the array for direction values
-    let directionValues = [0.0, 0.0, 0.0, 0.0]; // [up, right, down, left]
+  if (e.type === "mousedown") {
+    xOffset = e.clientX - rect.left;
+    yOffset = e.clientY - rect.top;
+    window.addEventListener('mousemove', dragObject, true);
+  } else if (e.type === "touchstart") {
+    xOffset = e.targetTouches[0].clientX - rect.left;
+    yOffset = e.targetTouches[0].clientY - rect.top;
+    window.addEventListener('touchmove', dragObject, true);
+  }
+}
 
-    if (distance > 0) {
-        // Calculate angle in radians (optional based on your logic)
-        const angle = Math.atan2(deltaY, deltaX);
+function dragObject(e) {
+  e.preventDefault();
+  e.stopPropagation();
 
-        // Determine the impact on each direction
-        if (deltaY < 0) {
-            directionValues[0] = parseFloat((normalizedDistance).toFixed(0)); // Up
-        } else if (deltaY > 0) {
-            directionValues[2] = parseFloat((normalizedDistance).toFixed(0)); // Down
-        }
-        
-        if (deltaX > 0) {
-            directionValues[1] = parseFloat((normalizedDistance).toFixed(0)); // Right
-        } else if (deltaX < 0) {
-            directionValues[3] = parseFloat((normalizedDistance).toFixed(0)); // Left
-        }
-    }
+  if (!dragObj) return;
 
-    const stickX = normalizedDistance * Math.cos(Math.atan2(deltaY, deltaX));
-    const stickY = normalizedDistance * Math.sin(Math.atan2(deltaY, deltaX));
-    
-    analogStick.style.transform = `translate(-50%, -50%) translate(${stickX}px, ${stickY}px)`;
+  if (e.type === "mousemove") {
+    dragObj.style.left = e.clientX - xOffset + "px";
+    dragObj.style.top = e.clientY - yOffset + "px";
+  } else if (e.type === "touchmove") {
+    dragObj.style.left = e.targetTouches[0].clientX - xOffset + "px";
+    dragObj.style.top = e.targetTouches[0].clientY - yOffset + "px";
+  }
+}
 
-    // Log the direction values (now with floats)
-    console.log('Direction Values:', directionValues);
+function stopDrag(e) {
+  if (dragObj) {
+    // Reset to default position, which is in the center of leftSide
+    setDefaultPosition();
+    dragObj = null;
+    window.removeEventListener('mousemove', dragObject, true);
+    window.removeEventListener('touchmove', dragObject, true);
+  }
 }
