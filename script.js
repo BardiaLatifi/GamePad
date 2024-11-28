@@ -2,7 +2,7 @@
 let dragObj = document.getElementById("analog");
 
 // Defining the move limit of the analog
-const radius = 30; // Radius for circular boundary
+const radius = 15; // Radius for circular boundary
 
 // Setting xOffset and yOffset to 0 to prevent jumping
 let xOffset = 0;
@@ -27,8 +27,8 @@ function setDefaultPosition() {
   const leftSideRect = leftSide.getBoundingClientRect();
 
   // Calculate center position based on leftSide dimensions
-  defaultPosition.left = leftSideRect.left + leftSideRect.width / 2 - 25; // 25 is half of analog div width
-  defaultPosition.top = leftSideRect.top + leftSideRect.height / 2 - 25; // 25 is half of analog div height
+  defaultPosition.left = leftSideRect.left + leftSideRect.width / 2 - 20; // 25 is half of analog div width
+  defaultPosition.top = leftSideRect.top + leftSideRect.height / 2 - 20; // 25 is half of analog div height
 
   // Apply default position
   dragObj.style.position = "absolute";
