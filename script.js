@@ -2,10 +2,7 @@
 let dragObj = document.getElementById("analog");
 
 // Defining the move limit of the analog
-const boundaryLeft = 91;  // left boundary
-const boundaryRight = 161; // right boundary
-const boundaryTop = 144;  // left boundary
-const boundaryBottom = 74; // right boundary
+const radius = 30; // Radius for circular boundary
 
 // Setting xOffset and yOffset to 0 to prevent jumping
 let xOffset = 0;
@@ -75,16 +72,19 @@ function dragObject(e) {
   let newLeft = clientX - xOffset;
   let newTop = clientY - yOffset;
 
-  // Boundary checking
-  if (newLeft < boundaryLeft) {
-    newLeft = boundaryLeft;
-  } else if (newLeft > boundaryRight) {
-    newLeft = boundaryRight;
-  }
-  if (newTop > boundaryTop) {
-    newTop = boundaryTop;
-  } else if (newTop < boundaryBottom) {
-    newTop = boundaryBottom;
+  // Calculate distance from default position
+  const centerX = defaultPosition.left; // Center X of the circular boundary (half width)
+  const centerY = defaultPosition.top; // Center Y of the circular boundary (half height)
+      
+  const dx = newLeft - centerX;
+  const dy = newTop - centerY;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  
+  // Check if distance exceeds radius
+  if (distance > radius) {
+      const angle = Math.atan2(dy, dx); // Calculate angle
+      newLeft = centerX + Math.cos(angle) * radius; // Adjust newLeft based on angle and radius
+      newTop = centerY + Math.sin(angle) * radius; // Adjust newTop based on angle and radius
   }
 
   // Update the position of the drag object with constraints
