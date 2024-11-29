@@ -2,7 +2,7 @@
 let dragObj = document.getElementById("analog");
 
 // Defining the move limit of the analog
-const radius = 15;
+const radius = 20;
 
 // Setting xOffset and yOffset to 0 to prevent jumping
 let xOffset = 0;
@@ -27,8 +27,8 @@ function setDefaultPosition() {
   const analogBaseRect = analogBase.getBoundingClientRect();
 
   // Calculate center position based on leftSide dimensions
-  defaultPosition.left = leftSideRect.left + leftSideRect.width / 2 - 20;
-  defaultPosition.top = leftSideRect.top + leftSideRect.height / 2 - 20;
+  defaultPosition.left = leftSideRect.left + leftSideRect.width / 2 - 25;
+  defaultPosition.top = leftSideRect.top + leftSideRect.height / 2 - 25;
 
   // Apply default position
   dragObj.style.position = "absolute";
