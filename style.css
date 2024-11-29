@@ -28,9 +28,6 @@ button {
   font-size: 0.6rem;
 }
 
-button:hover {
-  background-color: var(--medium-gray);
-}
 
 /***** GAMEPAD *****/
 
