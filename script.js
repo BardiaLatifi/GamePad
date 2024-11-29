@@ -2,7 +2,7 @@
 let dragObj = document.getElementById("analog");
 
 // Defining the move limit of the analog
-const radius = 15;
+const radius = 20;
 
 // Setting xOffset and yOffset to 0 to prevent jumping
 let xOffset = 0;
@@ -26,12 +26,12 @@ window.onload = function() {
 
 // Function to set the default position to the center of leftSide
 function setDefaultPosition() {
-  const leftSide = document.getElementById("leftSide");
-  const leftSideRect = leftSide.getBoundingClientRect();
+  const analogBase = document.getElementById("analogBase");
+  const analogBaseRect = analogBase.getBoundingClientRect();
 
   // Calculate center position based on leftSide dimensions
-  defaultPosition.left = leftSideRect.left + leftSideRect.width / 2 - 20;
-  defaultPosition.top = leftSideRect.top + leftSideRect.height / 2 - 20;
+  defaultPosition.left = analogBaseRect.left + analogBaseRect.width / 2 - 25;
+  defaultPosition.top = analogBaseRect.top + analogBaseRect.height / 2 - 25;
 
   // Apply default position
   dragObj.style.position = "absolute";
@@ -107,3 +107,36 @@ function stopDrag(e) {
     window.removeEventListener("touchmove", dragObject, true);
   }
 }
+
+/* Test */
+
+// Make the view fullscreen after screen rotaion on mobile devices
+document.addEventListener("DOMContentLoaded", () => {
+  const gamePad = document.getElementById("gamePad");
+
+  const enterFullScreen = () => {
+    if (gamePad.requestFullscreen) {
+      gamePad.requestFullscreen();
+    } else if (gamePad.webkitRequestFullscreen) { // Safari
+      gamePad.webkitRequestFullscreen();
+    } else if (gamePad.msRequestFullscreen) { // IE11
+      gamePad.msRequestFullscreen();
+    }
+    gamePad.classList.add("fullscreen");
+  };
+
+  const exitFullScreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+    gamePad.classList.remove("fullscreen");
+  };
+
+  window.addEventListener("orientationchange", () => {
+    if (window.orientation === 90 || window.orientation === -90) {
+      enterFullScreen();
+    } else {
+      exitFullScreen();
+    }
+  });
+});
