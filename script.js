@@ -1,5 +1,5 @@
 // The draggable object
-let dragObj = document.getElementById("analog");
+let dragObj = document.getElementById("directionAnalog");
 
 // Defining the move limit of the analog
 const radius = 20;
@@ -23,12 +23,12 @@ window.onload = function() {
 
 // Function to set the default position to the center of leftSide
 function setDefaultPosition() {
-  const analogBase = document.getElementById("analogBase");
-  const analogBaseRect = analogBase.getBoundingClientRect();
+  const directionAnalogBase = document.getElementById("directionAnalogBase");
+  const directionAnalogBaseRect = directionAnalogBase.getBoundingClientRect();
 
   // Calculate center position based on leftSide dimensions
-  defaultPosition.left = analogBaseRect.left + analogBaseRect.width / 2 - 25;
-  defaultPosition.top = analogBaseRect.top + analogBaseRect.height / 2 - 25;
+  defaultPosition.left = directionAnalogBaseRect.left + directionAnalogBaseRect.width / 2 - 25;
+  defaultPosition.top = directionAnalogBaseRect.top + directionAnalogBaseRect.height / 2 - 25;
 
   // Apply default position
   dragObj.style.position = "absolute";
@@ -40,15 +40,15 @@ function startDrag(e) {
   e.preventDefault();
   e.stopPropagation();
   dragObj = e.target;
-  const analogRect = dragObj.getBoundingClientRect();
+  const directionAnalogRect = dragObj.getBoundingClientRect();
 
   if (e.type === "mousedown") {
-    xOffset = e.clientX - analogRect.left;
-    yOffset = e.clientY - analogRect.top;
+    xOffset = e.clientX - directionAnalogRect.left;
+    yOffset = e.clientY - directionAnalogRect.top;
     window.addEventListener("mousemove", dragObject, true);
   } else if (e.type === "touchstart") {
-    xOffset = e.targetTouches[0].clientX - analogRect.left;
-    yOffset = e.targetTouches[0].clientY - analogRect.top;
+    xOffset = e.targetTouches[0].clientX - directionAnalogRect.left;
+    yOffset = e.targetTouches[0].clientY - directionAnalogRect.top;
     window.addEventListener("touchmove", dragObject, true);
   }
 }

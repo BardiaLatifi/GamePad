@@ -8,25 +8,49 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- THE CONSOLE -->
     <div id="gamePad">
+      <!-- LEFT -->
       <div id="leftSide">
-        <div id="analogBase"></div>
-        <div id="analog"></div>
+        <button id="minusBtn"></button>
+        <div class="analogBase" id="directionAnalogBase">
+          <div class="analog" id="directionAnalog"></div>
+        </div>
+        <div id="directionBtnCont">
+          <button id="upBtn"></button>
+          <div class="left-rightRow">
+            <button id="leftBtn"></button>
+            <button id="rightBtn"></button>
+          </div>
+          <button id="downBtn"></button>
+        </div>
+        <button id="screenShotBtn"></button>
       </div>
+
+      <!-- THE SCREEN -->
       <canvas id="canvas"></canvas>
+
+      <!-- RIGHT -->
       <div id="rightSide">
-        <div id="actionBtnContainer">
-        <button id="xBtn">X</button>
-        <div id="y-aRow">
+        <div id="plusBtn"></div>
+        <div id="actionBtnCont">
+          <button id="xBtn">X</button>
+          <div id="y-aRow">
             <button id="yBtn">Y</button>
             <button id="aBtn">A</button>
+          </div>
+          <button id="bBtn">B</button>
+          <div id="optionBtnCont"></div>
         </div>
-        <button id="bBtn">B</button>
-        <div id="optionBtnContainer"></div>
+        <div class="analogBase" id="angleAnalogBase">
+          <div class="analog" id="angleAnalog"></div>
         </div>
-    </div>
+        <div id="homeBtn"></div>
       </div>
+      <!-- Closing rightSide div -->
     </div>
+    <!-- Closing gamePad div -->
+
     <script src="script.js"></script>
     <script src="mobileView.js"></script>
   </body>
