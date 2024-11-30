@@ -99,7 +99,6 @@ button {
   height: 75px;
   border-radius: 50%; /* Makes it circular */
   background-color: var(--medium-gray); /* Optional: color for visibility */
-  position: relative; /* Positioning context for the analog stick */
   margin: 0 auto; /* Center it horizontally */
 }
 

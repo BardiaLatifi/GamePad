@@ -27,8 +27,8 @@ function setDefaultPosition() {
   const analogBaseRect = analogBase.getBoundingClientRect();
 
   // Calculate center position based on leftSide dimensions
-  defaultPosition.left = leftSideRect.left + leftSideRect.width / 2 - 25;
-  defaultPosition.top = leftSideRect.top + leftSideRect.height / 2 - 25;
+  defaultPosition.left = analogBaseRect.left + analogBaseRect.width / 2 - 25;
+  defaultPosition.top = analogBaseRect.top + analogBaseRect.height / 2 - 25;
 
   // Apply default position
   dragObj.style.position = "absolute";
