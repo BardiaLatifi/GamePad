@@ -72,6 +72,57 @@ button {
   background-color: var(--dark-gray);
 }
 
+/* Left Side */
+
+#leftSide {
+  display: grid;
+  grid-template-rows: 10% 30% 30% 10%;
+  align-items: center;
+  justify-items: center;
+}
+
+#minusBtn {
+  grid-row: 1;
+  justify-self: end;
+  width: 17px;
+  height: 5px;
+  border-radius: 0;
+  margin-right: 12px;
+}
+
+#directionBtnCont {
+  grid-row: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100px;
+  padding: 1.7em 0.2em;
+  margin-right: 0.3em;
+}
+
+#upBtn {
+  margin: 0 auto;
+}
+
+#left-rightRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#downBtn {
+  margin: 0 auto;
+}
+
+#screenShotBtn {
+  grid-row: 4;
+  justify-self: end;
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  margin-right: 25px;
+}
+
 /* Right Side */
 
 #rightSide {
@@ -144,58 +195,8 @@ button {
   border: solid 2px var(--medium-gray);
 }
 
-/* Left Side */
 
-#leftSide {
-  display: grid;
-  grid-template-rows: 10% 30% 30% 10%;
-  align-items: center;
-  justify-items: center;
-}
-
-#minusBtn {
-  grid-row: 1;
-  justify-self: end;
-  width: 17px;
-  height: 5px;
-  border-radius: 0;
-  margin-right: 12px;
-}
-
-#directionBtnCont {
-  grid-row: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100px;
-  padding: 1.7em 0.2em;
-  margin-right: 0.3em;
-}
-
-#upBtn {
-  margin: 0 auto;
-}
-
-#left-rightRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#downBtn {
-  margin: 0 auto;
-}
-
-#screenShotBtn {
-  grid-row: 4;
-  justify-self: end;
-  width: 20px;
-  height: 20px;
-  border-radius: 0;
-  margin-right: 25px;
-}
-
-/* test */
+/* FullScreen */
 
 .fullscreen {
   position: fixed; /* Make it take the full viewport */

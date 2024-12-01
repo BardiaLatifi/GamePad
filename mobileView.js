@@ -69,6 +69,39 @@ function fixViewport() {
   });
 }
 
+/* FullScreen */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const gamePad = document.getElementById("gamePad");
+  const screenShotBtn = document.getElementById("screenShotBtn");
+
+  const enterFullScreen = () => {
+    if (gamePad.requestFullscreen) {
+      gamePad.requestFullscreen();
+    } else if (gamePad.webkitRequestFullscreen) { // Safari
+      gamePad.webkitRequestFullscreen();
+    } else if (gamePad.msRequestFullscreen) { // IE11
+      gamePad.msRequestFullscreen();
+    }
+    gamePad.classList.add("fullscreen");
+  };
+
+  const exitFullScreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+    gamePad.classList.remove("fullscreen");
+  };
+
+  screenShotBtn.addEventListener("click", () => {
+    if (document.fullscreenElement) {
+      exitFullScreen();
+    } else {
+      enterFullScreen();
+    }
+  });
+});
+
 // Event listeners for resolution detection and orientation change
 window.addEventListener("resize", detectDeviceType);
 window.addEventListener("orientationchange", handleOrientationChange);
