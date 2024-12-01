@@ -110,6 +110,7 @@ function stopDrag(e) {
 // Make the view fullscreen after screen rotaion on mobile devices
 document.addEventListener("DOMContentLoaded", () => {
   const gamePad = document.getElementById("gamePad");
+  const screenShotBtn = document.getElementById("screenShotBtn");
 
   const enterFullScreen = () => {
     if (gamePad.requestFullscreen) {
@@ -129,11 +130,11 @@ document.addEventListener("DOMContentLoaded", () => {
     gamePad.classList.remove("fullscreen");
   };
 
-  window.addEventListener("orientationchange", () => {
-    if (window.orientation === 90 || window.orientation === -90) {
-      enterFullScreen();
-    } else {
+  screenShotBtn.addEventListener("click", () => {
+    if (document.fullscreenElement) {
       exitFullScreen();
+    } else {
+      enterFullScreen();
     }
   });
 });

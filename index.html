@@ -18,7 +18,7 @@
         </div>
         <div id="directionBtnCont">
           <button id="upBtn"></button>
-          <div class="left-rightRow">
+          <div id="left-rightRow">
             <button id="leftBtn"></button>
             <button id="rightBtn"></button>
           </div>
@@ -28,11 +28,16 @@
       </div>
 
       <!-- THE SCREEN -->
-      <canvas id="canvas"></canvas>
+      <div id="screenCont">
+        <canvas id="screen"></canvas>
+      </div>
 
       <!-- RIGHT -->
       <div id="rightSide">
-        <div id="plusBtn"></div>
+        <button id="plusBtn">
+          <div id="plusBtnHorizontal"></div>
+          <div id="plusBtnVertical"></div>
+        </button>
         <div id="actionBtnCont">
           <button id="xBtn">X</button>
           <div id="y-aRow">
@@ -45,7 +50,7 @@
         <div class="analogBase" id="angleAnalogBase">
           <div class="analog" id="angleAnalog"></div>
         </div>
-        <div id="homeBtn"></div>
+        <button id="homeBtn"></button>
       </div>
       <!-- Closing rightSide div -->
     </div>
