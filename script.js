@@ -105,9 +105,8 @@ function stopDrag(e) {
   }
 }
 
-/* Test */
+/* FullScreen */
 
-// Make the view fullscreen after screen rotaion on mobile devices
 document.addEventListener("DOMContentLoaded", () => {
   const gamePad = document.getElementById("gamePad");
   const screenShotBtn = document.getElementById("screenShotBtn");
