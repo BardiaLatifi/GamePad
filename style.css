@@ -8,9 +8,9 @@
 }
 
 :root {
-  --light-gray: #D3D3D3; 
-  --medium-gray: #A9A9A9; 
-  --dark-gray: #505050; 
+  --light-gray: #959595; 
+  --medium-gray: #505050; 
+  --dark-gray: #454545; 
 }
 
 body {
@@ -22,7 +22,7 @@ button {
   width: 30px;
   height: 30px;
   background-color: var(--dark-gray);
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -42,7 +42,7 @@ button:active {
 #gamePad {
   display: grid;
   grid-template-columns: 13% 74% 13%;
-  width: 807px;
+  width: 860px;
   height: 375px;
   background-color: var(--light-gray);
 }
@@ -70,14 +70,14 @@ button:active {
 
 #screenCont {
   display: flex;
-  background-color: rgb(0, 0, 0);
+  background-color: #101010;
 }
 
 #screen {
-  width: 600px;
-  height: 375px;
+  width: 615.1px;
+  height: 346px;
   margin: auto auto;
-  background-color: var(--dark-gray);
+  background-color: #000000;
 }
 
 /* Left Side */
