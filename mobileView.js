@@ -1,6 +1,24 @@
 const portrait = window.matchMedia("(orientation: portrait)");
 const fullScreenBtn = document.getElementById("fullScreenBtn");
 
+// Fullscreen functionality
+function enterFullScreen() {
+  const gamePad = document.getElementById("gamePad");
+  if (gamePad.requestFullscreen) {
+    gamePad.requestFullscreen();
+  } else if (gamePad.webkitRequestFullscreen) { // Safari
+    gamePad.webkitRequestFullscreen();
+  } else if (gamePad.msRequestFullscreen) { // IE11
+    gamePad.msRequestFullscreen();
+  }
+}
+
+function exitFullScreen() {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+}
+
 // Function to show a pop-up message
 function showPopup(message) {
   const popup = document.createElement("div");
@@ -32,8 +50,8 @@ function handleOrientationChange(e) {
   if (e.matches) { // Portrait
     showPopup("Please rotate your phone and press the blinking button");
     fullScreenBtn.disabled = true; // Disable fullscreen button
-    
-
+    exitFullScreen(); // Call exitFullScreen
+    fullScreenBtn.classList.add("blinking-red");
   } else { // Landscape
     fullScreenBtn.disabled = false; // Enable fullscreen button
   }
@@ -42,25 +60,12 @@ function handleOrientationChange(e) {
 // Initialize event listeners for orientation changes
 portrait.addEventListener("change", handleOrientationChange);
 
-// Fullscreen functionality
+// Initial check for orientation
+handleOrientationChange(portrait);
+
+// Run this when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   const gamePad = document.getElementById("gamePad");
-
-  const enterFullScreen = () => {
-    if (gamePad.requestFullscreen) {
-      gamePad.requestFullscreen();
-    } else if (gamePad.webkitRequestFullscreen) { // Safari
-      gamePad.webkitRequestFullscreen();
-    } else if (gamePad.msRequestFullscreen) { // IE11
-      gamePad.msRequestFullscreen();
-    }
-  };
-
-  const exitFullScreen = () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    }
-  };
 
   fullScreenBtn.addEventListener("click", () => {
     if (document.fullscreenElement) {
@@ -72,6 +77,3 @@ document.addEventListener("DOMContentLoaded", () => {
     fullScreenBtn.classList.toggle("blinking-red");
   });
 });
-
-// Initial check for orientation
-handleOrientationChange(portrait);

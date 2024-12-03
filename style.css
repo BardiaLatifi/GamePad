@@ -53,7 +53,7 @@ button:active {
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  background-color: var(--medium-gray);
+  background-color: var(--dark-gray) /* dark-gray for analogless version */;
 }
 
 .analog {
