@@ -17,6 +17,7 @@ body {
   background-color: var(--medium-gray);
 }
 
+
 button {
   width: 30px;
   height: 30px;
@@ -26,6 +27,13 @@ button {
   border-radius: 50%;
   cursor: pointer;
   font-size: 1.2rem;
+  -webkit-tap-highlight-color: transparent; 
+  transition: background-color 0.3s;
+}
+
+button:active {
+  background-color: rgb(0, 0, 0);
+  transform: scale(0.9);
 }
 
 
@@ -114,7 +122,7 @@ button {
   margin: 0 auto;
 }
 
-#screenShotBtn {
+#fullScreenBtn {
   grid-row: 4;
   justify-self: end;
   width: 20px;
@@ -198,11 +206,18 @@ button {
 
 /* FullScreen */
 
-.fullscreen {
-  position: fixed; /* Make it take the full viewport */
-  top: 0;
-  left: 0;
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
-  z-index: 1000; /* Bring it to the front */
+.blinking-red {
+  animation: blink 1s infinite; /* Animation lasts 1 second and repeats infinitely */
+}
+
+@keyframes blink {
+  0% {
+      background-color: transparent; /* Start with no background color */
+  }
+  50% {
+      background-color: var(--dark-gray); /* Change to red at halfway point */
+  }
+  100% {
+      background-color: transparent; /* Fade back to transparent */
+  }
 }

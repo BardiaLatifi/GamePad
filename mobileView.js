@@ -1,79 +1,50 @@
-// Function to detect device resolution and setup handling accordingly
-function detectDeviceType() {
-  const userAgent = navigator.userAgent;
-
-  if (/Android/i.test(userAgent)) {
-    showPopup("Please rotate your device for the best experience.");
-  } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-    showPopup("Please rotate your device for the best experience.");
-  } else {
-    removePopup(); // Remove popup for other devices
-  }
-}
-
-function showPopup(message) {
-  // Same implementation as before
-}
-
-// Function to remove the pop-up
-function removePopup() {
-  // Same implementation as before
-}
-
-// Initial call to set up everything on load
-window.addEventListener("load", detectDeviceType);
-
+const portrait = window.matchMedia("(orientation: portrait)");
+const fullScreenBtn = document.getElementById("fullScreenBtn");
 
 // Function to show a pop-up message
 function showPopup(message) {
   const popup = document.createElement("div");
   popup.id = "popup";
   popup.style.position = "fixed";
-  popup.style.top = "15%";
+  popup.style.top = "10%";
   popup.style.left = "50%";
   popup.style.transform = "translate(-50%, -50%)";
-  popup.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+  popup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
   popup.style.color = "white";
   popup.style.fontSize = "2rem";
-  popup.style.padding = "50px";
-  popup.style.borderRadius = "5px";
+  popup.style.padding = "30px";
+  popup.style.lineHeight = "60px";
+  popup.style.borderRadius = "10px";
   popup.innerText = message;
   document.body.appendChild(popup);
 }
 
-// Function to remove the pop-up
+// Function to remove a pop-up message
 function removePopup() {
   const popup = document.getElementById("popup");
   if (popup) {
-      popup.remove();
+    popup.remove();
   }
 }
 
-// Function to handle device rotation
-function handleOrientationChange() {
-  removePopup();
+// Function to handle orientation changes
+function handleOrientationChange(e) {
+  if (e.matches) { // Portrait
+    showPopup("Please rotate your phone and press the blinking button");
+    fullScreenBtn.disabled = true; // Disable fullscreen button
+    
+
+  } else { // Landscape
+    fullScreenBtn.disabled = false; // Enable fullscreen button
+  }
 }
 
-// Function to effectively prevent default scroll actions
-function preventScroll() {
-  window.scrollTo(0, 0);  // Scroll to top to prevent default scrolling
-  document.body.style.overflow = "hidden"; // Prevent scrolling
-}
+// Initialize event listeners for orientation changes
+portrait.addEventListener("change", handleOrientationChange);
 
-// Function to fix user view to a certain area (you can customize the area as needed)
-function fixViewport() {
-  // Example: Set a specific viewport or focus on the game area
-  window.scrollTo({
-      top: document.getElementById("gamePad").offsetTop,
-      behavior: "smooth"
-  });
-}
-
-/* FullScreen */
-
+// Fullscreen functionality
 document.addEventListener("DOMContentLoaded", () => {
   const gamePad = document.getElementById("gamePad");
-  const screenShotBtn = document.getElementById("screenShotBtn");
 
   const enterFullScreen = () => {
     if (gamePad.requestFullscreen) {
@@ -83,28 +54,24 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (gamePad.msRequestFullscreen) { // IE11
       gamePad.msRequestFullscreen();
     }
-    gamePad.classList.add("fullscreen");
   };
 
   const exitFullScreen = () => {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     }
-    gamePad.classList.remove("fullscreen");
   };
 
-  screenShotBtn.addEventListener("click", () => {
+  fullScreenBtn.addEventListener("click", () => {
     if (document.fullscreenElement) {
       exitFullScreen();
     } else {
       enterFullScreen();
     }
+    removePopup(); // Remove the popup when the fullscreen button is clicked
+    fullScreenBtn.classList.toggle("blinking-red");
   });
 });
 
-// Event listeners for resolution detection and orientation change
-window.addEventListener("resize", detectDeviceType);
-window.addEventListener("orientationchange", handleOrientationChange);
-
-// Initial call to set up everything on load
-window.addEventListener("load", detectDeviceType);
+// Initial check for orientation
+handleOrientationChange(portrait);
