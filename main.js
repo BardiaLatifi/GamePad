@@ -1,11 +1,3 @@
-/* 
-import { initialize } from './analogLogics.js';
-
-window.onload = function() {
-  initialize();
-};
-*/
-
 import { globVar } from "./globVar.js";
 
 globVar.upBtn.addEventListener("click", () => console.log("Up"));

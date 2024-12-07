@@ -53,17 +53,7 @@ button:active {
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  background-color: var(--dark-gray) /* dark-gray for analogless version */;
-}
-
-.analog {
-  grid-row: 2;
-  justify-self: center;
-  width: 50px;
-  height: 50px;
   background-color: var(--dark-gray);
-  border-radius: 50%;
-  cursor: pointer;
 }
 
 /* Display */
@@ -188,10 +178,6 @@ button:active {
 
 #bBtn {
   margin: 0 auto;
-}
-
-#angleAnalogBase, #angleAnalog {
-  grid-row: 3;
 }
 
 #homeBtn {
