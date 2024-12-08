@@ -58,13 +58,13 @@ button:active {
 
 /* Display */
 
-#screenCont {
+#canvasCont {
   display: flex;
   background-color: #101010;
 }
 
-#screen {
-  width: 615.1px;
+#canvas {
+  width: 615px;
   height: 346px;
   margin: auto auto;
   background-color: #000000;
@@ -164,6 +164,10 @@ button:active {
   width: 100px;
   padding: 1.7em 0.2em;
   margin-left: 0.3em;
+}
+
+#angleAnalogBase {
+  grid-row: 3;
 }
 
 #xBtn {

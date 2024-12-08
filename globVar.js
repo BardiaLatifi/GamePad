@@ -17,4 +17,10 @@ export const globVar = {
   aBtn: document.getElementById("aBtn"),
   bBtn: document.getElementById("bBtn"),
   yBtn: document.getElementById("yBtn"),
+
+  // CANVAS
+  canvas: document.getElementById("canvas"),
+  ctx: canvas.getContext("2d"),
+  canvasWidth: canvas.width = 615,
+  canvasHeight: canvas.height = 346,
 };
