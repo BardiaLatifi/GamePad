@@ -41,9 +41,7 @@ button:active {
 
 #gamePad {
   display: grid;
-  grid-template-columns: 13% 74% 13%;
-  width: 860px;
-  height: 375px;
+  grid-template-columns: 110px 1fr 110px;
   background-color: var(--light-gray);
 }
 
@@ -128,6 +126,7 @@ button:active {
   grid-template-rows: 10% 30% 30% 10%;
   align-items: center;
   justify-items: center;
+  background-color: var(--light-gray);
 }
 
 #plusBtn {
@@ -196,7 +195,7 @@ button:active {
 
 /* FullScreen */
 
-.blinking-red {
+.blinking {
   animation: blink 1s infinite; /* Animation lasts 1 second and repeats infinitely */
 }
 

@@ -1,3 +1,4 @@
+export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
 const fullScreenBtn = document.getElementById("fullScreenBtn");
 
@@ -24,15 +25,17 @@ function showPopup(message) {
   const popup = document.createElement("div");
   popup.id = "popup";
   popup.style.position = "fixed";
-  popup.style.top = "10%";
+  popup.style.width = "100%";
+  popup.style.height = "350px";
+  popup.style.top = "0";
   popup.style.left = "50%";
-  popup.style.transform = "translate(-50%, -50%)";
-  popup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+  popup.style.transform = "translate(-50%, 0%)";
+  popup.style.backgroundColor = "rgba(0, 0, 0)";
   popup.style.color = "white";
-  popup.style.fontSize = "2rem";
-  popup.style.padding = "30px";
-  popup.style.lineHeight = "60px";
-  popup.style.borderRadius = "10px";
+  popup.style.fontSize = "1.5rem";
+  popup.style.fontWeight = "bold";
+  popup.style.padding = "20px";
+  popup.style.lineHeight = "80px";
   popup.innerText = message;
   document.body.appendChild(popup);
 }
@@ -47,12 +50,16 @@ function removePopup() {
 
 // Function to handle orientation changes
 function handleOrientationChange(e) {
-  if (e.matches) { // Portrait
-    showPopup("Please rotate your phone and press the blinking button");
+  if (e.matches) {
+     // Portrait
+    showPopup(`Please rotate your phone
+               and press the blinking button`);
     fullScreenBtn.disabled = true; // Disable fullscreen button
     exitFullScreen(); // Call exitFullScreen
-    fullScreenBtn.classList.add("blinking-red");
-  } else { // Landscape
+    fullScreenBtn.classList.add("blinking");
+  } else { 
+    // Landscape
+    removePopup();
     fullScreenBtn.disabled = false; // Enable fullscreen button
   }
 }
@@ -74,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
       enterFullScreen();
     }
     removePopup(); // Remove the popup when the fullscreen button is clicked
-    fullScreenBtn.classList.toggle("blinking-red");
+    fullScreenBtn.classList.toggle("blinking");
   });
-});
+  });
+};

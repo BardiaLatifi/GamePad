@@ -1,4 +1,7 @@
 import { globVar } from "./globVar.js";
+import { mobileView } from "./mobileView.js";
+
+mobileView();
 
 // Up button functionality
 globVar.upBtn.addEventListener("mousedown", () => moveUp = true);
