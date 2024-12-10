@@ -110,7 +110,7 @@ button:active {
   margin: 0 auto;
 }
 
-#fullScreenBtn {
+#screenShotBtn {
   grid-row: 4;
   justify-self: end;
   width: 20px;

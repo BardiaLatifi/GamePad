@@ -1,6 +1,6 @@
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
-const fullScreenBtn = document.getElementById("fullScreenBtn");
+const minusBtn = document.getElementById("minusBtn");
 
 // Fullscreen functionality
 function enterFullScreen() {
@@ -54,13 +54,13 @@ function handleOrientationChange(e) {
      // Portrait
     showPopup(`Please rotate your phone
                and press the blinking button`);
-    fullScreenBtn.disabled = true; // Disable fullscreen button
+    minusBtn.disabled = true; // Disable fullscreen button
     exitFullScreen(); // Call exitFullScreen
-    fullScreenBtn.classList.add("blinking");
+    minusBtn.classList.add("blinking");
   } else { 
     // Landscape
     removePopup();
-    fullScreenBtn.disabled = false; // Enable fullscreen button
+    minusBtn.disabled = false; // Enable fullscreen button
   }
 }
 
@@ -72,16 +72,14 @@ handleOrientationChange(portrait);
 
 // Run this when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  const gamePad = document.getElementById("gamePad");
-
-  fullScreenBtn.addEventListener("click", () => {
+  minusBtn.addEventListener("click", () => {
     if (document.fullscreenElement) {
       exitFullScreen();
     } else {
       enterFullScreen();
     }
-    removePopup(); // Remove the popup when the fullscreen button is clicked
-    fullScreenBtn.classList.toggle("blinking");
-  });
-  });
+    removePopup();
+    minusBtn.classList.toggle("blinking")
+  })
+});
 };
