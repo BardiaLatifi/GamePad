@@ -3,6 +3,35 @@ import { mobileView } from "./mobileView.js";
 
 mobileView();
 
+// Asset Preloading
+const assetsToLoad = [
+  "./assets/x.png",
+  "./assets/a.png",
+  "./assets/b.png",
+  "./assets/y.png",
+  "./assets/player.jpg"
+];
+
+let assetsLoaded = 0;
+
+// Load all assets
+assetsToLoad.forEach(asset => {
+  const img = new Image();
+  img.src = asset;
+  img.onload = () => {
+    console.log(`Loaded: ${asset}`); // Log each loaded asset
+    assetsLoaded++;
+    // Check if all assets are loaded
+    if (assetsLoaded === assetsToLoad.length) {
+      console.log('All assets loaded!'); // Log when all assets are loaded
+      loadHandler(); // Call your load handler once all assets are loaded
+    }
+  };
+  img.onerror = () => {
+    console.error(`Failed to load: ${asset}`); // Log loading errors
+  };
+});
+
 // Up button functionality
 globVar.upBtn.addEventListener("mousedown", () => moveUp = true);
 globVar.upBtn.addEventListener("mouseup", () => moveUp = false);
@@ -40,14 +69,14 @@ const playerObject = {
   width: 32,
   height: 32
 };
+
 const player = Object.create(playerObject);
 player.x = globVar.canvasWidth / 2 - player.width / 2;
 player.y = globVar.canvasHeight / 2 - player.height / 2;
 
-// The image of the player
+// Reference to the images
 const image = new Image();
-image.src = "./assets/player.jpg";
-image.addEventListener("load", loadHandler, false);
+image.src = "./assets/player.jpg"; // This is now loaded above
 
 // Speed Variables
 let Xspeed = 0;
@@ -103,7 +132,7 @@ function update() {
   // Boundary checks
   if (player.x < 0) player.x = 0;
   if (player.y < 0) player.y = 0;
-  
+
   if (player.x + player.width > globVar.canvasWidth) {
     player.x = globVar.canvasWidth - player.width;
   }
