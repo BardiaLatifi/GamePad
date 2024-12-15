@@ -79,37 +79,38 @@ class Game {
   setupControls() {
     // Movement flags
     this.player.movement = { up: false, right: false, down: false, left: false };
-  
+
+    // Function to handle movement state
+    const handleMovement = (direction, state) => {
+        this.player.movement[direction] = state;
+    };
+
     // Up button functionality
-    globVar.upBtn.addEventListener("mousedown", () => this.player.movement.up = true);
-    globVar.upBtn.addEventListener("mouseup", () => this.player.movement.up = false);
-    globVar.upBtn.addEventListener("touchstart", () => this.player.movement.up = true);
-    globVar.upBtn.addEventListener("touchend", () => this.player.movement.up = false);
-  
+    globVar.upBtn.addEventListener("pointerdown", () => handleMovement('up', true));
+    globVar.upBtn.addEventListener("pointerup", () => handleMovement('up', false));
+    globVar.upBtn.addEventListener("pointerout", () => handleMovement('up', false));
+
     // Down button functionality
-    globVar.downBtn.addEventListener("mousedown", () => this.player.movement.down = true);
-    globVar.downBtn.addEventListener("mouseup", () => this.player.movement.down = false);
-    globVar.downBtn.addEventListener("touchstart", () => this.player.movement.down = true);
-    globVar.downBtn.addEventListener("touchend", () => this.player.movement.down = false);
-  
+    globVar.downBtn.addEventListener("pointerdown", () => handleMovement('down', true));
+    globVar.downBtn.addEventListener("pointerup", () => handleMovement('down', false));
+    globVar.downBtn.addEventListener("pointerout", () => handleMovement('down', false));
+
     // Left button functionality
-    globVar.leftBtn.addEventListener("mousedown", () => this.player.movement.left = true);
-    globVar.leftBtn.addEventListener("mouseup", () => this.player.movement.left = false);
-    globVar.leftBtn.addEventListener("touchstart", () => this.player.movement.left = true);
-    globVar.leftBtn.addEventListener("touchend", () => this.player.movement.left = false);
-  
+    globVar.leftBtn.addEventListener("pointerdown", () => handleMovement('left', true));
+    globVar.leftBtn.addEventListener("pointerup", () => handleMovement('left', false));
+    globVar.leftBtn.addEventListener("pointerout", () => handleMovement('left', false));
+
     // Right button functionality
-    globVar.rightBtn.addEventListener("mousedown", () => this.player.movement.right = true);
-    globVar.rightBtn.addEventListener("mouseup", () => this.player.movement.right = false);
-    globVar.rightBtn.addEventListener("touchstart", () => this.player.movement.right = true);
-    globVar.rightBtn.addEventListener("touchend", () => this.player.movement.right = false);
-  
-    // Button to change image sources
-    globVar.act1Btn.addEventListener("click", () => this.changePlayerImage("./assets/x.png"));
-    globVar.act2Btn.addEventListener("click", () => this.changePlayerImage("./assets/a.png"));
-    globVar.act3Btn.addEventListener("click", () => this.changePlayerImage("./assets/b.png"));
-    globVar.act4Btn.addEventListener("click", () => this.changePlayerImage("./assets/y.png"));
-  }
+    globVar.rightBtn.addEventListener("pointerdown", () => handleMovement('right', true));
+    globVar.rightBtn.addEventListener("pointerup", () => handleMovement('right', false));
+    globVar.rightBtn.addEventListener("pointerout", () => handleMovement('right', false));
+
+    // Button to change image sources using pointer events
+    globVar.act1Btn.addEventListener("pointerdown", () => this.changePlayerImage("./assets/x.png"));
+    globVar.act2Btn.addEventListener("pointerdown", () => this.changePlayerImage("./assets/a.png"));
+    globVar.act3Btn.addEventListener("pointerdown", () => this.changePlayerImage("./assets/b.png"));
+    globVar.act4Btn.addEventListener("pointerdown", () => this.changePlayerImage("./assets/y.png"));
+}
   
   // Method to change player image
   changePlayerImage(imageSrc) {
