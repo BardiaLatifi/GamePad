@@ -1,10 +1,10 @@
 export const globVar = {
 
   // Option Button Variablse
-  plusBtn: document.getElementById("plusBtn"),
-  minusBtn: document.getElementById("plusBtn"),
-  homeBtn: document.getElementById("plusBtn"),
-  screenShotBtn: document.getElementById("plusBtn"),
+  rightOptionBtn: document.getElementById("plusBtn"),
+  leftOptionBtn: document.getElementById("leftOptionBtn"),
+  leftHomeBtn: document.getElementById("leftHomeBtn"),
+  rightHomeBtn: document.getElementById("rightHomeBtn"),
 
   // Direction Button Variablse
   upBtn: document.getElementById("upBtn"),
@@ -13,10 +13,10 @@ export const globVar = {
   downBtn: document.getElementById("downBtn"),
 
   // Action Button Variablse
-  xBtn: document.getElementById("xBtn"),
-  aBtn: document.getElementById("aBtn"),
-  bBtn: document.getElementById("bBtn"),
-  yBtn: document.getElementById("yBtn"),
+  act1Btn: document.getElementById("act1Btn"),
+  act2Btn: document.getElementById("act2Btn"),
+  act3Btn: document.getElementById("act3Btn"),
+  act4Btn: document.getElementById("act4Btn"),
 
   // CANVAS
   canvas: document.getElementById("canvas"),

@@ -105,10 +105,10 @@ class Game {
     globVar.rightBtn.addEventListener("touchend", () => this.player.movement.right = false);
   
     // Button to change image sources
-    globVar.xBtn.addEventListener("click", () => this.changePlayerImage("./assets/x.png"));
-    globVar.aBtn.addEventListener("click", () => this.changePlayerImage("./assets/a.png"));
-    globVar.bBtn.addEventListener("click", () => this.changePlayerImage("./assets/b.png"));
-    globVar.yBtn.addEventListener("click", () => this.changePlayerImage("./assets/y.png"));
+    globVar.act1Btn.addEventListener("click", () => this.changePlayerImage("./assets/x.png"));
+    globVar.act2Btn.addEventListener("click", () => this.changePlayerImage("./assets/a.png"));
+    globVar.act3Btn.addEventListener("click", () => this.changePlayerImage("./assets/b.png"));
+    globVar.act4Btn.addEventListener("click", () => this.changePlayerImage("./assets/y.png"));
   }
   
   // Method to change player image

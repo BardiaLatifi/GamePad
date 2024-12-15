@@ -1,6 +1,7 @@
+import { globVar } from "./globVar.js";
+
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
-const minusBtn = document.getElementById("minusBtn");
 
 // Fullscreen functionality
 function enterFullScreen() {
@@ -54,13 +55,13 @@ function handleOrientationChange(e) {
      // Portrait
     showPopup(`Please rotate your phone
                and press the blinking button`);
-    minusBtn.disabled = true; // Disable fullscreen button
+    globVar.leftOptionBtn.disabled = true; // Disable fullscreen button
     exitFullScreen(); // Call exitFullScreen
-    minusBtn.classList.add("blinking");
+    globVar.leftOptionBtn.classList.add("blinking");
   } else { 
     // Landscape
     removePopup();
-    minusBtn.disabled = false; // Enable fullscreen button
+    globVar.leftOptionBtn.disabled = false; // Enable fullscreen button
   }
 }
 
@@ -72,14 +73,14 @@ handleOrientationChange(portrait);
 
 // Run this when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  minusBtn.addEventListener("click", () => {
+  globVar.leftOptionBtn.addEventListener("click", () => {
     if (document.fullscreenElement) {
       exitFullScreen();
     } else {
       enterFullScreen();
     }
     removePopup();
-    minusBtn.classList.toggle("blinking")
+    globVar.leftOptionBtn.classList.toggle("blinking")
   })
 });
 };
