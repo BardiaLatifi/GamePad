@@ -1,6 +1,6 @@
 // Import required modules
 import { globVar } from "./globVar.js";
-import { mobileView } from "./mobileView.js";
+import { mobileView } from "./initialize.js";
 
 mobileView(); // Initialize mobile view
 

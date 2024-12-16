@@ -1,4 +1,5 @@
 import { globVar } from "./globVar.js";
+import { environmentHandler } from "./Environments.js";
 
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
@@ -76,11 +77,38 @@ document.addEventListener("DOMContentLoaded", () => {
   globVar.leftOptionBtn.addEventListener("click", () => {
     if (document.fullscreenElement) {
       exitFullScreen();
+      environmentHandler("optimization");
     } else {
       enterFullScreen();
+      environmentHandler("boot-screen");
     }
     removePopup();
-    globVar.leftOptionBtn.classList.toggle("blinking")
+    globVar.leftOptionBtn.classList.toggle("blinking");
   })
 });
+};
+
+export function bootScreen() {
+  const canvasCont = document.getElementById("canvasCont");
+  const canvas = document.getElementById("canvas");
+  const bootGif = document.createElement("img");
+
+  // Initially hide the canvas
+  canvas.style.display = "none";
+
+  // Set up the bootGif
+  bootGif.src = "./assets/Boot.gif";
+  bootGif.style.gridRow = "2";
+  bootGif.style.margin = "auto auto";
+  bootGif.style.width = "615";
+  bootGif.style.height = "346";
+
+  // Insert the bootGif into the gamePad
+  canvasCont.children[0].insertAdjacentElement("afterend", bootGif);
+
+  // Show bootGif for 8.1 seconds and then hide it
+  setTimeout(() => {
+  bootGif.remove();
+  canvas.style.display = "block";
+  }, 8100);
 };
