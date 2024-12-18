@@ -1,5 +1,4 @@
 import { globVar } from "./globVar.js";
-import { environmentHandler } from "./Environments.js";
 
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
@@ -72,15 +71,17 @@ portrait.addEventListener("change", handleOrientationChange);
 // Initial check for orientation
 handleOrientationChange(portrait);
 
+let currentEnv = globVar.currentEnv;
+
 // Run this when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   globVar.leftOptionBtn.addEventListener("click", () => {
     if (document.fullscreenElement) {
       exitFullScreen();
-      environmentHandler("optimization");
+      globVar.currentEnvHandler("optimization");
     } else {
       enterFullScreen();
-      environmentHandler("boot-screen");
+      globVar.currentEnvHandler("boot-screen");
     }
     removePopup();
     globVar.leftOptionBtn.classList.toggle("blinking");
@@ -89,26 +90,19 @@ document.addEventListener("DOMContentLoaded", () => {
 };
 
 export function bootScreen() {
-  const canvasCont = document.getElementById("canvasCont");
   const canvas = document.getElementById("canvas");
-  const bootGif = document.createElement("img");
+  const ctx = canvas.getContext("2d");
+  const canvasWidth = canvas.width = 615;
+  const canvasHeight = canvas.height = 346;
 
-  // Initially hide the canvas
-  canvas.style.display = "none";
+  const bootpic = new Image();
 
-  // Set up the bootGif
-  bootGif.src = "./assets/Boot.gif";
-  bootGif.style.gridRow = "2";
-  bootGif.style.margin = "auto auto";
-  bootGif.style.width = "615";
-  bootGif.style.height = "346";
+  bootpic.src = "./assets/boot/boot6.jpg";
 
-  // Insert the bootGif into the gamePad
-  canvasCont.children[0].insertAdjacentElement("afterend", bootGif);
+  ctx.drawImage(bootpic, 0, 0, canvasWidth, canvasHeight);
 
-  // Show bootGif for 8.1 seconds and then hide it
   setTimeout(() => {
-  bootGif.remove();
-  canvas.style.display = "block";
+  bootpic.remove();
+  globVar.currentEnv = "main-menu";
   }, 8100);
 };

@@ -1,7 +1,10 @@
+import { globVar } from "./globVar.js"
 import { mobileView, bootScreen } from "./initialize.js";
+import { testGame } from "./testGame.js";
 
-export function environmentHandler(currentEnv) {
 
+ function environmentHandler(currentEnv) {
+globVar.currentEnvHandler("optimization")
         switch (currentEnv) {
             case "optimization":
                 mobileView();
@@ -12,6 +15,7 @@ export function environmentHandler(currentEnv) {
                 console.log("Current Environment: Boot Screen");
                 break;
             case "main-menu":
+                testGame();
                 console.log("Current Environment: Main Menu");
                 break;
             case "in-game":
@@ -25,4 +29,6 @@ export function environmentHandler(currentEnv) {
                 break;
         }
     };
+
+    environmentHandler("optimization");
 

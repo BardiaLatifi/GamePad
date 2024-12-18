@@ -1,9 +1,8 @@
 // Import required modules
 import { globVar } from "./globVar.js";
-import { mobileView } from "./initialize.js";
 
-mobileView(); // Initialize mobile view
 
+/*
 // Asset Preloading
 const assetsToLoad = [
   "./assets/x.png",
@@ -34,6 +33,7 @@ function handleAssetLoad(asset) {
     loadHandler();
   }
 }
+*/
 
 // Player Class
 class Player {
@@ -137,11 +137,9 @@ class Game {
   }
 }
 
-// Load Handler
-function loadHandler() {
+export function testGame() {
   const game = new Game(); // Instantiate the Game
   game.startAnimation(); // Start the animation loop
 }
 
-// Start the asset preloading
-preloadAssets();
+

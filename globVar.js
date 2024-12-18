@@ -1,5 +1,11 @@
 export const globVar = {
 
+  // Environment
+  currentEnv: "",
+  currentEnvHandler: function (newEnv) {
+    this.currentEnv = newEnv;
+  },
+
   // Option Button Variablse
   rightOptionBtn: document.getElementById("plusBtn"),
   leftOptionBtn: document.getElementById("leftOptionBtn"),
