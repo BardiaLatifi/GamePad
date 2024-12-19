@@ -74,35 +74,44 @@ handleOrientationChange(portrait);
 let currentEnv = globVar.currentEnv;
 
 // Run this when DOM is loaded
+// Run this when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   globVar.leftOptionBtn.addEventListener("click", () => {
+    // Log the current environment before the change
+
     if (document.fullscreenElement) {
       exitFullScreen();
       globVar.currentEnvHandler("optimization");
+      globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
     } else {
       enterFullScreen();
       globVar.currentEnvHandler("boot-screen");
     }
+
     removePopup();
     globVar.leftOptionBtn.classList.toggle("blinking");
-  })
+  });
 });
+
 };
 
 export function bootScreen() {
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-  const canvasWidth = canvas.width = 615;
-  const canvasHeight = canvas.height = 346;
-
   const bootpic = new Image();
-
   bootpic.src = "./assets/boot/boot6.jpg";
 
-  ctx.drawImage(bootpic, 0, 0, canvasWidth, canvasHeight);
+  // Wait for the image to load before drawing it
+  bootpic.onload = () => {
+    globVar.ctx.drawImage(bootpic, 0, 0, globVar.canvasWidth, globVar.canvasHeight); // Draw the image
 
-  setTimeout(() => {
-  bootpic.remove();
-  globVar.currentEnv = "main-menu";
-  }, 8100);
-};
+    // Set a timeout to change the environment after 8.1 seconds
+    setTimeout(() => {
+      globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
+      globVar.currentEnvHandler("main-menu"); // Change environment using the handler
+    }, 3000);
+  };
+
+  // Optionally, handle image loading errors
+  bootpic.onerror = () => {
+    console.error("Error loading boot image.");
+  };
+}

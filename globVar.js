@@ -1,9 +1,10 @@
 export const globVar = {
-
   // Environment
   currentEnv: "",
+  
   currentEnvHandler: function (newEnv) {
     this.currentEnv = newEnv;
+    document.dispatchEvent(new CustomEvent('envChange', { detail: newEnv }));
   },
 
   // Option Button Variablse
