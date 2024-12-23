@@ -1,7 +1,7 @@
 import { globVar } from "./globVar.js";
 import { setupControls, movement } from "./setupControls.js"
 
-const player = new Image();
+export const player = new Image();
 player.src = "./assets/player.jpg";
 player.width = 32;
 player.height = 32;
@@ -21,13 +21,16 @@ function update() {
   if (movement.left) playerX -= speed;
   if (movement.right) playerX += speed;
 
-  // Boundary checks
-  playerX = Math.max(0, Math.min(globVar.canvasWidth - player.width, player.x));
-  playerY = Math.max(0, Math.min(globVar.canvasHeight - player.height, player.y));
+  // Check boundaries
+  const halfWidth = player.width / 2;
+  const halfHeight = player.height / 2;
+
+  playerX = Math.max(halfWidth, Math.min(playerX, globVar.canvasWidth - halfWidth));
+  playerY = Math.max(halfHeight, Math.min(playerY, globVar.canvasHeight - halfHeight));
 }
   
 function draw(ctx) {
-  ctx.drawImage(player, Math.floor(playerX), Math.floor(playerY), player.width, player.height);
+  ctx.drawImage(player, Math.floor(playerX) - 16 , Math.floor(playerY) - 16, player.width, player.height);
 }
 
 function render() {
@@ -46,4 +49,3 @@ export function startControllerTest() {
     render();
   }
 }
-

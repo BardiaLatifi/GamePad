@@ -1,5 +1,6 @@
 // Import required modules
 import { globVar } from "./globVar.js";
+import { player } from "./controllerTest.js";
 
 export const movement = { up: false, right: false, down: false, left: false };
 
@@ -30,8 +31,8 @@ export function setupControls() {
       globVar.rightBtn.addEventListener("pointerout", () => handleMovement('right', false));
   
       // Button to change image sources using pointer events
-      globVar.act1Btn.addEventListener("pointerdown", () => console.log("1-button: X"));
-      globVar.act2Btn.addEventListener("pointerdown", () => console.log("2-button: A"));
-      globVar.act3Btn.addEventListener("pointerdown", () => console.log("3-button: B"));
-      globVar.act4Btn.addEventListener("pointerdown", () => console.log("4-button: Y"));
+      globVar.act1Btn.addEventListener("pointerdown", () => player.src = "./assets/x.png");
+      globVar.act2Btn.addEventListener("pointerdown", () => player.src = "./assets/a.png");
+      globVar.act3Btn.addEventListener("pointerdown", () => player.src = "./assets/b.png");
+      globVar.act4Btn.addEventListener("pointerdown", () => player.src = "./assets/y.png");
 }

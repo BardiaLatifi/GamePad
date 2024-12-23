@@ -1,6 +1,5 @@
 import { globVar } from "./globVar.js";
 import { mobileView, bootScreen } from "./initialize.js";
-import { testGame } from "./testGame.js";
 import { setupControls } from "./setupControls.js";
 import { startControllerTest } from "./controllerTest.js";
 
