@@ -1,4 +1,5 @@
 import { globVar } from "./globVar.js";
+import { animateSpriteSheet, animateImages } from "./animation.js";
 
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
@@ -96,22 +97,15 @@ document.addEventListener("DOMContentLoaded", () => {
 };
 
 export function bootScreen() {
-  const bootpic = new Image();
-  bootpic.src = "./assets/boot/boot6.jpg";
-
-  // Wait for the image to load before drawing it
-  bootpic.onload = () => {
-    globVar.ctx.drawImage(bootpic, 0, 0, globVar.canvasWidth, globVar.canvasHeight); // Draw the image
-
-    // Set a timeout to change the environment after 8.1 seconds
-    setTimeout(() => {
-      globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
-      globVar.currentEnvHandler("main-menu"); // Change environment using the handler
-    }, 3000);
-  };
-
-  // Optionally, handle image loading errors
-  bootpic.onerror = () => {
-    console.error("Error loading boot image.");
-  };
+  const canvasId = "canvas";
+  const frameSources = [
+    "./assets/boot/boot1.jpg",
+    "./assets/boot/boot2.jpg",
+    "./assets/boot/boot3.jpg",
+    "./assets/boot/boot4.jpg",
+    "./assets/boot/boot5.jpg",
+    "./assets/boot/boot6.jpg",
+  ];
+  const frameDurations = [1400, 1200, 900, 500, 300, 200];
+  animateImages(canvasId, frameSources, frameDurations);
 }
