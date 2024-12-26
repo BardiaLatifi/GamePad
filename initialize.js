@@ -105,7 +105,15 @@ export function bootScreen() {
     "./assets/boot/boot4.jpg",
     "./assets/boot/boot5.jpg",
     "./assets/boot/boot6.jpg",
+    "./assets/boot/boot6.jpg",
   ];
-  const frameDurations = [1400, 1200, 900, 500, 300, 200];
-  animateImages(canvasId, frameSources, frameDurations);
+  const frameDurations = [100, 1400, 1200, 900, 500, 300, 1000];
+
+  function clear() {
+    globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
+    globVar.currentEnvHandler("main-menu");
+    console.log("animation completed")
+  }
+
+  animateImages(canvasId, frameSources, frameDurations, clear);
 }

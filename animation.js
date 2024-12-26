@@ -33,7 +33,7 @@ export function animateSpriteSheet(canvasId, spriteSheetSrc, spriteWidth, sprite
     };
 };
 
-export function animateImages(canvasId, frameSources, frameDurations) {
+export function animateImages(canvasId, frameSources, frameDurations, callBack) {
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext('2d');
     const frames = [];
@@ -53,22 +53,31 @@ export function animateImages(canvasId, frameSources, frameDurations) {
                 requestAnimationFrame(drawFrame);
             }
         };
-        
     });
 
     function drawFrame() {
         const now = Date.now();
         const deltaTime = now - lastFrameTime;
 
+        // Check if the current frame has reached its duration
         if (deltaTime > frameDurations[currentFrame]) {
             ctx.drawImage(frames[currentFrame], 0, 0, canvas.width, canvas.height);
-
             // Move to the next frame
-            currentFrame = (currentFrame + 1) % frames.length;
+            currentFrame++;
 
-            lastFrameTime = now;
+            // Check if we have displayed all frames
+            if (currentFrame < frames.length) {
+                lastFrameTime = now; // Update the lastFrameTime only if we have more frames to show
+                console.log(`Current frame is: ${currentFrame}`); // Should log 0-based index
+            } else {
+                // Animation complete, call callBack if provided
+                if (callBack) {
+                    callBack();
+                }
+                return; // Stop the animation
+            }
         }
 
-        requestAnimationFrame(drawFrame); // Continue animating
+        requestAnimationFrame(drawFrame); // Continue animating if there are more frames
     }
 }
