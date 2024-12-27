@@ -1,5 +1,5 @@
 import { globVar } from "./globVar.js";
-import { animateSpriteSheet, animateImages } from "./animation.js";
+import { animateSpriteSheet, animateImages, preloadImages } from "./animation.js";
 
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
@@ -116,5 +116,12 @@ export function bootScreen() {
     console.log("animation completed")
   }
 
-  animateImages(canvasId, frameSources, frameDurations, clear);
+  // Preload images before starting the animation
+  preloadImages(frameSources)
+    .then(loadedImages => {
+      animateImages(canvasId, loadedImages, frameDurations, clear);
+    })
+    .catch(error => {
+      console.error("Error loading images:", error);
+    });
 }

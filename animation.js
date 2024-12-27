@@ -33,32 +33,40 @@ export function animateSpriteSheet(canvasId, spriteSheetSrc, spriteWidth, sprite
     };
 };
 
-export function animateImages(canvasId, frameSources, frameDurations, callback) {
+export function animateImages(canvasId, loadedImages, frameDurations, callback) {
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext('2d');
     
     let currentFrame = 0;
 
     function renderFrame() {
-      if (currentFrame < frameSources.length) {
-        const img = new Image();
-        img.src = frameSources[currentFrame];
+      if (currentFrame < loadedImages.length) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(loadedImages[currentFrame], 0, 0);
         
-        img.onload = () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0);
-          
-          // Set timeout for the next frame
-          setTimeout(() => {
-            currentFrame++;
-            renderFrame();
-          }, frameDurations[currentFrame]);
-          console.log(`current frame: ${currentFrame + 1}`);
-        };
+        // Set timeout for the next frame
+        setTimeout(() => {
+          currentFrame++;
+          renderFrame();
+        }, frameDurations[currentFrame]);
       } else {
         // If we have rendered all frames, call the callback
         callback();
       }
     }
+
     renderFrame();
+  }
+
+  export function preloadImages(imageSources) {
+    const promises = imageSources.map(src => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+      });
+    });
+    
+    return Promise.all(promises);
   }
