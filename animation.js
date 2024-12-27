@@ -33,51 +33,32 @@ export function animateSpriteSheet(canvasId, spriteSheetSrc, spriteWidth, sprite
     };
 };
 
-export function animateImages(canvasId, frameSources, frameDurations, callBack) {
+export function animateImages(canvasId, frameSources, frameDurations, callback) {
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext('2d');
-    const frames = [];
+    
     let currentFrame = 0;
-    let lastFrameTime = 0;
 
-    // Load Images
-    let loadedFrames = 0;
-    frameSources.forEach((src, index) => {
+    function renderFrame() {
+      if (currentFrame < frameSources.length) {
         const img = new Image();
-        img.src = src;
+        img.src = frameSources[currentFrame];
+        
         img.onload = () => {
-            frames[index] = img; // Store the loaded image
-            loadedFrames++;
-            // Start animation once all frames are loaded
-            if (loadedFrames === frameSources.length) {
-                requestAnimationFrame(drawFrame);
-            }
-        };
-    });
-
-    function drawFrame() {
-        const now = Date.now();
-        const deltaTime = now - lastFrameTime;
-
-        // Check if the current frame has reached its duration
-        if (deltaTime > frameDurations[currentFrame]) {
-            ctx.drawImage(frames[currentFrame], 0, 0, canvas.width, canvas.height);
-            // Move to the next frame
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          
+          // Set timeout for the next frame
+          setTimeout(() => {
             currentFrame++;
-
-            // Check if we have displayed all frames
-            if (currentFrame < frames.length) {
-                lastFrameTime = now; // Update the lastFrameTime only if we have more frames to show
-                console.log(`Current frame is: ${currentFrame}`); // Should log 0-based index
-            } else {
-                // Animation complete, call callBack if provided
-                if (callBack) {
-                    callBack();
-                }
-                return; // Stop the animation
-            }
-        }
-
-        requestAnimationFrame(drawFrame); // Continue animating if there are more frames
+            renderFrame();
+          }, frameDurations[currentFrame]);
+          console.log(`current frame: ${currentFrame + 1}`);
+        };
+      } else {
+        // If we have rendered all frames, call the callback
+        callback();
+      }
     }
-}
+    renderFrame();
+  }
