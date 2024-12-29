@@ -106,20 +106,23 @@ export function bootScreen() {
     "./assets/boot/boot5.jpg",
     "./assets/boot/boot6.jpg",
     "./assets/boot/boot7.jpg",
-    "./assets/boot/boot7.jpg",
-  ];
-  const frameDurations = [1000, 1200, 1200, 500, 500, 150, 150,1000];
+    "./assets/boot/boot8.jpg",
 
+  ];
+  const frameDurations = [1200, 1200, 1200, 500, 500, 150, 2000];
   function clear() {
-    globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
-    globVar.currentEnvHandler("main-menu");
-    console.log("animation completed")
+    // After fade out completes, change the environment and log completion
+    setTimeout(() => {
+      globVar.currentEnvHandler("main-menu");
+      console.log("Animation completed");
+      globVar.ctx.globalAlpha = 1;
+    }, 600); // Match this timeout with the fade-out duration
   }
 
   // Preload images before starting the animation
   preloadImages(frameSources)
     .then(loadedImages => {
-      animateImages(canvasId, loadedImages, frameDurations, clear);
+      animateImages(canvasId, loadedImages, frameDurations, clear, false, true);
     })
     .catch(error => {
       console.error("Error loading images:", error);

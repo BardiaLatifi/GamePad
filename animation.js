@@ -33,30 +33,90 @@ export function animateSpriteSheet(canvasId, spriteSheetSrc, spriteWidth, sprite
     };
 };
 
-export function animateImages(canvasId, loadedImages, frameDurations, callback) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext('2d');
-    
-    let currentFrame = 0;
+export function animateImages(canvasId, loadedImages, frameDurations, callback, fadeIn = false, fadeOut = false) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  
+  let currentFrame = 0;
 
-    function renderFrame() {
-      if (currentFrame < loadedImages.length) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(loadedImages[currentFrame], 0, 0);
-        
-        // Set timeout for the next frame
-        setTimeout(() => {
+  // Render Frame Logic
+  function renderFrame() {
+    if (currentFrame < loadedImages.length) {
+      const currentImage = loadedImages[currentFrame];
+
+      if (fadeIn && currentFrame === 0) {
+        // If it's the first frame and fade in is enabled
+        fadeInEffect(currentImage, frameDurations[currentFrame], () => {
           currentFrame++;
           renderFrame();
-        }, frameDurations[currentFrame]);
+        });
+      } else if (fadeOut && currentFrame === loadedImages.length - 1) {
+        // If we're fading out the last image
+        const previousImage = loadedImages[currentFrame - 1];
+        fadeOutEffect(previousImage, frameDurations[currentFrame - 1], () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear after fade out
+          ctx.drawImage(currentImage, 0, 0); // Draw the current image
+          currentFrame++;
+          renderFrame();
+        });
       } else {
-        // If we have rendered all frames, call the callback
-        callback();
+        ctx.drawImage(currentImage, 0, 0); // Draw image without fade
+        setTimeout(() => {
+          currentFrame++;
+          renderFrame(); // Schedule the next frame
+        }, frameDurations[currentFrame]);
       }
+    } else {
+      // If all frames are rendered, call the callback
+      callback();
     }
-
-    renderFrame();
   }
+
+  // Fade In Effect
+  function fadeInEffect(image, duration, onComplete) {
+    let alpha = 0;
+    ctx.globalAlpha = alpha; // Reset alpha for fade in
+    
+    const increment = 1 / (duration / 50); // Fade speed
+    const fadeInterval = setInterval(() => {
+      alpha += increment;
+
+      if (alpha >= 1) {
+        alpha = 1;
+        clearInterval(fadeInterval);
+        if (onComplete) onComplete();
+      }
+
+      ctx.globalAlpha = alpha;
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear before drawing
+      ctx.drawImage(image, 0, 0);
+    }, 50);
+  }
+
+  // Fade Out Effect
+  function fadeOutEffect(image, duration, onComplete) {
+    let alpha = 1;
+    
+    const decrement = 1 / (duration / 50); // Fade speed
+    const fadeInterval = setInterval(() => {
+      alpha -= decrement;
+
+      if (alpha <= 0) {
+        alpha = 0;
+        clearInterval(fadeInterval);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear after fade out
+        if (onComplete) onComplete();
+      }
+
+      ctx.globalAlpha = alpha;
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear before drawing
+      ctx.drawImage(image, 0, 0);
+    }, 50);
+  }
+
+  renderFrame(); // Start rendering frames
+}
+
 
   export function preloadImages(imageSources) {
     const promises = imageSources.map(src => {
