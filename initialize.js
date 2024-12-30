@@ -1,5 +1,5 @@
 import { globVar } from "./globVar.js";
-import { animateSpriteSheet, animateImages, preloadImages } from "./animation.js";
+import { animateImages } from "./animation.js";
 
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
@@ -75,7 +75,6 @@ handleOrientationChange(portrait);
 let currentEnv = globVar.currentEnv;
 
 // Run this when DOM is loaded
-// Run this when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   globVar.leftOptionBtn.addEventListener("click", () => {
     // Log the current environment before the change
@@ -96,6 +95,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 };
 
+export function preloadImages(imageSources) {
+  const promises = imageSources.map(src => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+    });
+  });
+  
+  return Promise.all(promises);
+}
+
 export function bootScreen() {
   const canvasId = "canvas";
   const frameSources = [
@@ -109,7 +121,7 @@ export function bootScreen() {
     "./assets/boot/boot8.jpg",
 
   ];
-  const frameDurations = [1200, 1200, 1200, 500, 500, 150, 2000];
+  const frameDurations = [1200, 1200, 1000, 500, 500, 150, 2000];
   function clear() {
     // After fade out completes, change the environment and log completion
     setTimeout(() => {
