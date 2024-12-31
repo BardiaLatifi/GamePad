@@ -68,6 +68,7 @@ export function animateImages(canvasId, loadedImages, frameDurations, callback, 
       }
     } else {
       // If all frames are rendered, call the callback
+      currentFrame = 0; // Reset for looping
       callback();
     }
   }
