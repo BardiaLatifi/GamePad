@@ -1,11 +1,11 @@
 import { globVar } from "./globVar.js";
 import { setupControls, movement } from "./setupControls.js"
-import { animateImages, animateSpriteSheet } from "./animation.js";
+import { animateSpriteSheet, blinkingFade } from "./animation.js";
 import { preloadImages } from "./initialize.js";
 
     
 // Defining variables
-let isAnimating = false;
+let isAnimating = true;
 let highlightedItem = "";
 let selectedItem = "";
 const bGImg = new Image();
@@ -18,63 +18,54 @@ setupControls();
 
 export function drawBGImg() {
   const canvasId = "canvas";
-  const frameSources = [
-    "./assets/bg/bg0.jpg",
-    "./assets/bg/bg1.jpg",
-    "./assets/bg/bg2.jpg",
-    "./assets/bg/bg3.jpg",
-    "./assets/bg/bg4.jpg",
-    "./assets/bg/bg5.jpg",
-    "./assets/bg/bg6.jpg",
-    "./assets/bg/bg7.jpg",
-    "./assets/bg/bg8.jpg",
-    "./assets/bg/bg9.jpg",
-    "./assets/bg/bg10.jpg"
-  ];
-  const frameDurations = [1000, 800, 800, 800, 800, 800, 800, 800, 800, 1000];
-  function repeat(loadedImages) {
-    animateImages(canvasId, loadedImages, frameDurations, () => repeat(loadedImages), false, false);
+  const spriteSheetSrc = "./assets/bg/green-bg-sheet.png";
+  const totalFrames = 48;
+  const fps = 10;
+  const x = 0;
+  const y = 0;
+
+  if (isAnimating) {
+    animateSpriteSheet(canvasId, spriteSheetSrc, totalFrames, fps, x, y);
   }
-    // Preload images before starting the animation
-    preloadImages(frameSources)
-    .then(loadedImages => {
-     repeat(loadedImages); // Start the first animation cycle
-    })
-    .catch(error => {
-      console.error("Error loading images:", error);
-    });
+
 }
 
-function pressStartBtn() {
-  const canvasId = "canvas";
-  const frameSources = [
-    "./assets/bg/bg0.jpg",
-    "./assets/bg/bg1.jpg",
-    "./assets/bg/bg2.jpg",
-    "./assets/bg/bg3.jpg",
-    "./assets/bg/bg4.jpg",
-    "./assets/bg/bg5.jpg",
-    "./assets/bg/bg6.jpg",
-    "./assets/bg/bg7.jpg",
-    "./assets/bg/bg8.jpg",
-    "./assets/bg/bg9.jpg",
-    "./assets/bg/bg10.jpg"
-  ];
-  const frameDurations = [1000, 800, 800, 800, 800, 800, 800, 800, 800, 1000];
-  function repeat(loadedImages) {
-    animateImages(canvasId, loadedImages, frameDurations, () => repeat(loadedImages), false, false);
+export function pressStartBtn() {
+  //creation the second canvas
+  const canvasCont = document.getElementById("canvasCont")
+  const canvas2 = document.createElement("canvas");
+  canvas2.id = "canvas2";
+  canvasCont.appendChild(canvas2); 
+  canvas2.width = globVar.canvasWidth;
+  canvas2.height = globVar.canvasHeight;
+  canvas2.style.position = "absolute";
+  canvas2.style.left = "50%";
+  canvas2.style.top = "50%";
+  canvas2.style.transform = "translate(-50%, -50%)"; 
+
+  const src = "./assets/text/Press+Button.png"
+  const speed = 0.02;
+  const min = 0.1;
+  const max = 1;
+
+  const plusBtn = function() {
+    isAnimating = false;
+    globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
+
+      // Remove canvas2 if it's still present
+      if (canvas2.parentNode) {
+        canvas2.remove(); // Properly delete canvas2
+      }
+    globVar.currentEnvHandler("in-game");
   }
-    // Preload images before starting the animation
-    preloadImages(frameSources)
-    .then(loadedImages => {
-     repeat(loadedImages); // Start the first animation cycle
-    })
-    .catch(error => {
-      console.error("Error loading images:", error);
-    });
+
+  if (isAnimating) {
+    blinkingFade(canvas2.id, src, speed, min, max);
+  }
+
+  globVar.rightOptionBtn.addEventListener("click", plusBtn);
 }
 
 function mainMenu() {
-
 
 }

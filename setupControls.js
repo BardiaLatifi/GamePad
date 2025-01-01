@@ -35,4 +35,6 @@ export function setupControls() {
       globVar.act2Btn.addEventListener("pointerdown", () => player.src = "./assets/a.png");
       globVar.act3Btn.addEventListener("pointerdown", () => player.src = "./assets/b.png");
       globVar.act4Btn.addEventListener("pointerdown", () => player.src = "./assets/y.png");
+
+      // Option Buttons
 }

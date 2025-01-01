@@ -8,7 +8,7 @@ export const globVar = {
   },
 
   // Option Button Variablse
-  rightOptionBtn: document.getElementById("plusBtn"),
+  rightOptionBtn: document.getElementById("rightOptionBtn"),
   leftOptionBtn: document.getElementById("leftOptionBtn"),
   leftHomeBtn: document.getElementById("leftHomeBtn"),
   rightHomeBtn: document.getElementById("rightHomeBtn"),

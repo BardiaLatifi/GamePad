@@ -57,6 +57,7 @@ button:active {
 /* Display */
 
 #canvasCont {
+  position: relative;
   display: flex;
   background-color: #101010;
 }
