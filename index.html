@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <script
+      src="https://kit.fontawesome.com/94415f4ef4.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>GamePad</title>
   </head>
   <body>
     <!-- THE CONSOLE -->
@@ -13,17 +17,8 @@
     <div id="gamePad">
       <!-- LEFT -->
       <div id="leftSide">
-        <button class="blinking" id="leftOptionBtn"></button>
-        <div class="analogBase" id="leftAnalogBase"></div>
-        <div id="directionBtnCont">
-          <button id="upBtn"></button>
-          <div id="left-rightRow">
-            <button id="leftBtn"></button>
-            <button id="rightBtn"></button>
-          </div>
-          <button id="downBtn"></button>
-        </div>
-        <button id="leftHomeBtn"></button>
+        <button id="optionBtn"></button>
+        <div id="direction"></div>
       </div>
 
       <!-- THE SCREEN -->
@@ -33,20 +28,17 @@
 
       <!-- RIGHT -->
       <div id="rightSide">
-        <button id="rightOptionBtn">
-          <div id="plusBtnHorizontal"></div>
-          <div id="plusBtnVertical"></div>
+        <button id="actBtn1" class="action-button">
+          <i class="fa-solid fa-play"></i>
         </button>
-        <div id="actionBtnCont">
-          <button id="act1Btn">X</button>
-          <div id="act2-act4Row">
-            <button id="act4Btn">Y</button>
-            <button id="act2Btn">A</button>
-          </div>
-          <button id="act3Btn">B</button>
-        </div>
-        <div class="analogBase" id="rightAnalogBase"></div>
-        <button id="rightHomeBtn"></button>
+
+        <button id="actBtn3" class="action-button">
+          <i class="fa-solid fa-square"></i>
+        </button>
+
+        <button id="actBtn2" class="action-button">
+          <i class="fa-solid fa-x"></i>
+        </button>
       </div>
       <!-- Closing rightSide div -->
     </div>
