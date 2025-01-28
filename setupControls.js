@@ -10,8 +10,8 @@ const handleMovement = (direction, state) => {
 
 
 export function setupControls() {
-  const touchArea = document.getElementById('touchArea');
-  const coordinatesDisplay = document.getElementById('coordinates');
+  const touchArea = document.getElementById("touchArea");
+  const coordinatesDisplay = document.getElementById("coordinates");
   const directionText = document.getElementById("directionText")
 
   let xRelative = 0;
@@ -19,7 +19,9 @@ export function setupControls() {
 
   let isInside = false;
 
-  // Touch Area Handling
+  // ---------------------------
+  // TOUCH AREA
+  // ---------------------------
   function handleTouchArea(e) {
     // Only handle first touch in the touch area
     const touch = e.touches[0];
@@ -50,74 +52,75 @@ export function setupControls() {
       const centerY = rect.height / 2;
   
       // Update movement states
-      handleMovement('right', xRelative > centerX + 10);  // 10px dead zone
-      handleMovement('left', xRelative < centerX - 10);
-      handleMovement('down', yRelative > centerY + 10);
-      handleMovement('up', yRelative < centerY - 10);
+      handleMovement("right", xRelative > centerX + 10);  // 10px dead zone
+      handleMovement("left", xRelative < centerX - 10);
+      handleMovement("down", yRelative > centerY + 10);
+      handleMovement("up", yRelative < centerY - 10);
   
       // Optional: Update direction text
       directionText.textContent = [
-        movement.up ? 'up' : '',
-        movement.down ? 'down' : '',
-        movement.left ? 'left' : '',
-        movement.right ? 'right' : ''
-      ].filter(Boolean).join('+') || 'neutral';
+        movement.up ? "up" : "",
+        movement.down ? "down" : "",
+        movement.left ? "left" : "",
+        movement.right ? "right" : ""
+      ].filter(Boolean).join("+") || "neutral";
   
       coordinatesDisplay.textContent = `Touch at: ${xRelative}, ${yRelative}`;
       e.preventDefault();
     }
   }
   
-  // Update handleTouchEnd to reset movement
   function handleTouchEnd() {
     if (isInside) {
-      coordinatesDisplay.textContent = 'Exited';
+      coordinatesDisplay.textContent = "Exited";
       // Reset all movement states
       Object.keys(movement).forEach(direction => {
         handleMovement(direction, false);
       });
-      directionText.textContent = 'neutral';
+      directionText.textContent = "neutral";
       isInside = false;
     }
   }
 
-
   function handleActionButton(e) {
-    const button = e.target.closest('.action-button');
+    const button = e.target.closest(".action-button");
     if (!button) return;
   
     // Add visual feedback
-    button.classList.add('active');
+    button.classList.add("active");
     
     switch(button.id) {
-      case 'actBtn1':
+      case "actBtn1":
         player.src = "./assets/act1.png";
         break;
-      case 'actBtn2':
+      case "actBtn2":
         player.src = "./assets/act2.png";
         break;
-      case 'actBtn3':
+      case "actBtn3":
         player.src = "./assets/act3.png";
         break;
     }
     e.preventDefault();
   }
   function resetButtonStyle(e) {
-    const button = e.target.closest('.action-button');
-    if (button) button.classList.remove('active');
+    const button = e.target.closest(".action-button");
+    if (button) button.classList.remove("active");
     e.preventDefault();
   }
 
-  // For touch area
-  touchArea.addEventListener('touchstart', handleTouchArea);
-  touchArea.addEventListener('touchmove', handleTouchMove);
-  touchArea.addEventListener('touchend', handleTouchEnd);
-  touchArea.addEventListener('touchcancel', handleTouchEnd);
+  touchArea.addEventListener("touchstart", handleTouchArea);
+  touchArea.addEventListener("touchmove", handleTouchMove);
+  touchArea.addEventListener("touchend", handleTouchEnd);
+  touchArea.addEventListener("touchcancel", handleTouchEnd);
 
-// Update event listeners for buttons
-[globVar.actBtn1, globVar.actBtn2, globVar.actBtn3].forEach(button => {
-  button.addEventListener('touchstart', handleActionButton);
-  button.addEventListener('touchend', resetButtonStyle);
-  button.addEventListener('touchcancel', resetButtonStyle);
-});
+  // ---------------------------
+  // BUTTONS
+  // ---------------------------
+
+  // Update event listeners for buttons
+  [globVar.actBtn1, globVar.actBtn2, globVar.actBtn3].forEach(button => {
+    button.addEventListener("touchstart", handleActionButton);
+    button.addEventListener("touchend", resetButtonStyle);
+    button.addEventListener("touchcancel", resetButtonStyle);
+  });
 }

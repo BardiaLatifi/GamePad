@@ -139,6 +139,17 @@ button:active {
   transform: translate(-50%, -50%);
 }
 
+#homeBtn {
+  grid-row: 3;
+  box-sizing: content-box;
+  width: 25px;
+  height: 25px;
+  border: #1b1b1b solid 3px;
+  align-self: center;
+  justify-self: center;
+  background-color: var(--dark-gray);
+}
+
 
 /* Right Side */
 
@@ -192,6 +203,12 @@ button:active {
 }
 #actBtn3 svg {
   stroke: rgb(165, 175, 233);
+}
+
+.holding {
+  background: rgba(0, 0, 0, 0.2) !important;
+  transform: scale(0.95);
+  transition: all 0.2s ease;
 }
 
 /* FullScreen */

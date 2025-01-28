@@ -43,28 +43,66 @@ function handleOrientationChange(e) {
 // Initialize event listeners for orientation changes
 portrait.addEventListener("change", handleOrientationChange);
 
+
+let holdTimeout = null;
+let isHolding = false;
+
+function handleHoldStart() {
+  if (isHolding) return;
+  isHolding = true;
+  
+  // Visual feedback
+  globVar.homeBtn.classList.add("holding");
+  
+  holdTimeout = setTimeout(() => {
+    if (document.fullscreenElement) {
+      exitFullScreen();
+    } else {
+      enterFullScreen();
+    }
+    resetHoldState();
+  }, 1500);
+}
+
+function handleHoldEnd() {
+  if (!isHolding) return;
+  resetHoldState();
+}
+
+function resetHoldState() {
+  clearTimeout(holdTimeout);
+  isHolding = false;
+  globVar.homeBtn.classList.remove("holding");
+}
+
+// Add event listeners
+globVar.homeBtn.addEventListener("touchstart", handleHoldStart);
+globVar.homeBtn.addEventListener("touchend", handleHoldEnd);
+globVar.homeBtn.addEventListener("touchcancel", handleHoldEnd);
+
+
 // Initial check for orientation
 handleOrientationChange(portrait);
 
 
 // Run this when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  fullScreenBtn.addEventListener("click", () => {
+    fullScreenBtn.addEventListener("click", () => {
 
-    popup.style.display = "none";
-    globVar.gamePad.style.display = "grid";
-    // Log the current environment before the change
+      popup.style.display = "none";
+      globVar.gamePad.style.display = "grid";
+      // Log the current environment before the change
 
-    if (document.fullscreenElement) {
-      exitFullScreen();
-      globVar.currentEnvHandler("optimization");
-      globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
-    } else {
-      enterFullScreen();
-      globVar.currentEnvHandler("boot-screen");
-    }
+      if (document.fullscreenElement) {
+        exitFullScreen();
+        globVar.currentEnvHandler("optimization");
+        globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
+      } else {
+        enterFullScreen();
+        globVar.currentEnvHandler("boot-screen");
+      }
+    });
   });
-});
 
 };
 
