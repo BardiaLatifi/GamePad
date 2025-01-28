@@ -7,23 +7,14 @@ export const globVar = {
     document.dispatchEvent(new CustomEvent('envChange', { detail: newEnv }));
   },
 
-  // Option Button Variablse
-  rightOptionBtn: document.getElementById("rightOptionBtn"),
-  leftOptionBtn: document.getElementById("leftOptionBtn"),
-  leftHomeBtn: document.getElementById("leftHomeBtn"),
-  rightHomeBtn: document.getElementById("rightHomeBtn"),
+  gamePad: document.getElementById("gamePad"),
 
-  // Direction Button Variablse
-  upBtn: document.getElementById("upBtn"),
-  rightBtn: document.getElementById("rightBtn"),
-  leftBtn: document.getElementById("leftBtn"),
-  downBtn: document.getElementById("downBtn"),
+  optionBtn: document.getElementById("optionBtn"),
 
   // Action Button Variablse
-  act1Btn: document.getElementById("act1Btn"),
-  act2Btn: document.getElementById("act2Btn"),
-  act3Btn: document.getElementById("act3Btn"),
-  act4Btn: document.getElementById("act4Btn"),
+  actBtn1: document.getElementById("actBtn1"),
+  actBtn2: document.getElementById("actBtn2"),
+  actBtn3: document.getElementById("actBtn3"),
 
   // CANVAS
   canvas: document.getElementById("canvas"),

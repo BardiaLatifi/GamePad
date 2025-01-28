@@ -2,7 +2,7 @@ import { globVar } from "./globVar.js";
 import { setupControls, movement } from "./setupControls.js"
 
 export const player = new Image();
-player.src = "./assets/player.jpg";
+player.src = "./assets/act2.png";
 player.width = 32;
 player.height = 32;
 let playerX = globVar.canvasWidth / 2;

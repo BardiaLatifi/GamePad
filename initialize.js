@@ -4,6 +4,10 @@ import { animateImages } from "./animation.js";
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
 
+const popup = document.getElementById("popup");
+const fullScreenBtn = document.getElementById("fullScreenBtn");
+const turnGif = document.getElementById("turnGif");
+
 // Fullscreen functionality
 function enterFullScreen() {
   const gamePad = document.getElementById("gamePad");
@@ -22,47 +26,17 @@ function exitFullScreen() {
   }
 }
 
-// Function to show a pop-up message
-function showPopup(message) {
-  const popup = document.createElement("div");
-  popup.id = "popup";
-  popup.style.position = "fixed";
-  popup.style.width = "100%";
-  popup.style.height = "350px";
-  popup.style.top = "0";
-  popup.style.left = "50%";
-  popup.style.transform = "translate(-50%, 0%)";
-  popup.style.backgroundColor = "rgba(0, 0, 0)";
-  popup.style.color = "white";
-  popup.style.fontSize = "1.5rem";
-  popup.style.fontWeight = "bold";
-  popup.style.padding = "20px";
-  popup.style.lineHeight = "80px";
-  popup.innerText = message;
-  document.body.appendChild(popup);
-}
-
-// Function to remove a pop-up message
-function removePopup() {
-  const popup = document.getElementById("popup");
-  if (popup) {
-    popup.remove();
-  }
-}
-
 // Function to handle orientation changes
 function handleOrientationChange(e) {
   if (e.matches) {
      // Portrait
-    showPopup(`Please rotate your phone
-               and press the blinking button`);
-    globVar.leftOptionBtn.disabled = true; // Disable fullscreen button
     exitFullScreen(); // Call exitFullScreen
-    globVar.leftOptionBtn.classList.add("blinking");
+    turnGif.style.display = "block";
+    fullScreenBtn.style.display = "none";
   } else { 
     // Landscape
-    removePopup();
-    globVar.leftOptionBtn.disabled = false; // Enable fullscreen button
+    turnGif.style.display = "none";
+    fullScreenBtn.style.display = "block";
   }
 }
 
@@ -72,11 +46,13 @@ portrait.addEventListener("change", handleOrientationChange);
 // Initial check for orientation
 handleOrientationChange(portrait);
 
-let currentEnv = globVar.currentEnv;
 
 // Run this when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  globVar.leftOptionBtn.addEventListener("click", () => {
+  fullScreenBtn.addEventListener("click", () => {
+
+    popup.style.display = "none";
+    globVar.gamePad.style.display = "grid";
     // Log the current environment before the change
 
     if (document.fullscreenElement) {
@@ -87,9 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
       enterFullScreen();
       globVar.currentEnvHandler("boot-screen");
     }
-
-    removePopup();
-    globVar.leftOptionBtn.classList.toggle("blinking");
   });
 });
 

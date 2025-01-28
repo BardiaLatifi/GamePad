@@ -13,11 +13,13 @@
   </head>
   <body>
     <!-- THE CONSOLE -->
-    <div id="popUp"></div>
+    <div id="popup">
+      <img id="turnGif" src="./assets/turn.gif" />
+      <button id="fullScreenBtn">Full Screen</button>
+    </div>
     <div id="gamePad">
       <!-- LEFT -->
       <div id="leftSide">
-        <button id="optionBtn"></button>
         <div id="direction"></div>
       </div>
 
@@ -28,15 +30,17 @@
 
       <!-- RIGHT -->
       <div id="rightSide">
+        <button id="optionBtn"></button>
+
         <button id="actBtn1" class="action-button">
           <i class="fa-solid fa-play"></i>
         </button>
 
-        <button id="actBtn3" class="action-button">
+        <button id="actBtn2" class="action-button">
           <i class="fa-solid fa-square"></i>
         </button>
 
-        <button id="actBtn2" class="action-button">
+        <button id="actBtn3" class="action-button">
           <i class="fa-solid fa-x"></i>
         </button>
       </div>

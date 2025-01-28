@@ -30,7 +30,7 @@ export function drawBGImg() {
 
 }
 
-export function pressStartBtn() {
+export function pressOptionBtn() {
   //creation the second canvas
   const canvasCont = document.getElementById("canvasCont")
   const canvas2 = document.createElement("canvas");
@@ -43,19 +43,19 @@ export function pressStartBtn() {
   canvas2.style.top = "50%";
   canvas2.style.transform = "translate(-50%, -50%)"; 
 
-  const src = "./assets/text/Press+Button.png"
+  const src = "./assets/text/Press-Button.png"
   const speed = 0.02;
   const min = 0.1;
   const max = 1;
 
-  const plusBtn = function() {
+  const optionBtn = function() {
     isAnimating = false;
     globVar.ctx.clearRect(0, 0, globVar.canvasWidth, globVar.canvasHeight);
 
-      // Remove canvas2 if it's still present
-      if (canvas2.parentNode) {
-        canvas2.remove(); // Properly delete canvas2
-      }
+    // Remove canvas2 if it's still present
+    if (canvas2.parentNode) {
+      canvas2.remove();
+    }
     globVar.currentEnvHandler("in-game");
   }
 
@@ -63,7 +63,7 @@ export function pressStartBtn() {
     blinkingFade(canvas2.id, src, speed, min, max);
   }
 
-  globVar.rightOptionBtn.addEventListener("click", plusBtn);
+  globVar.optionBtn.addEventListener("click", optionBtn);
 }
 
 function mainMenu() {

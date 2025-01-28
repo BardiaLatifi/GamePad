@@ -1,7 +1,7 @@
 import { globVar } from "./globVar.js";
 import { mobileView, bootScreen } from "./initialize.js";
 import { startControllerTest } from "./controllerTest.js";
-import { pressStartBtn, drawBGImg } from "./mainMenu.js";
+import { pressOptionBtn, drawBGImg } from "./mainMenu.js";
 
 // This function handles switching the environment based on currentEnv
 function environmentHandler(currentEnv) {
@@ -16,7 +16,7 @@ function environmentHandler(currentEnv) {
       break;
     case "main-menu":
       drawBGImg()
-      pressStartBtn();
+      pressOptionBtn();
       console.log("Current Environment: Main Menu");
       break;
     case "in-game":
