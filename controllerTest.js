@@ -8,7 +8,7 @@ player.height = 32;
 let playerX = globVar.canvasWidth / 2;
 let playerY = globVar.canvasHeight / 2;
 
-const speed = 2;
+const speed = 1;
 let isAnimating = false;
 setupControls();
 

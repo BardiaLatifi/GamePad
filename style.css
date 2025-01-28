@@ -88,7 +88,14 @@ button:active {
 }
 
 #coordinates {
+  display: none;
   grid-row: 1;
+  margin: auto;
+}
+
+#directionText {
+  display: none;
+  grid-row: 3;
   margin: auto;
 }
 
@@ -167,16 +174,25 @@ button:active {
   background-color: black !important;
 }
 
-.action-button i {
-  font-size: 2rem;
-  opacity: 0.6;
+.action-button svg {
+  pointer-events: none; /* Crucial for touch handling */
+  transition: transform 0.1s ease; /* Match button transition */
+  vertical-align: middle;
 }
 
-#actBtn1 i {
-  transform: rotate(-90deg) translateX(2px);
-  font-size: 2.2rem;
+.action-button.active svg {
+  transform: scale(0.9); /* Scale icon with button */
 }
 
+#actBtn1 svg {
+  stroke: rgb(88, 203, 173);
+}
+#actBtn2 svg {
+  stroke: rgb(212, 162, 187);
+}
+#actBtn3 svg {
+  stroke: rgb(165, 175, 233);
+}
 
 /* FullScreen */
 
