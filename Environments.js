@@ -11,7 +11,7 @@ function environmentHandler(currentEnv) {
       console.log("Current Environment: optimization");
       break;
     case "boot-screen":
-      bootScreen();
+    startControllerTest();
       console.log("Current Environment: Boot Screen");
       break;
     case "main-menu":

@@ -31,6 +31,11 @@ button:active {
   transform: scale(0.9);
 }
 
+#touchArea, .action-button {
+  touch-action: none;
+  user-select: none;
+}
+
 /**** POPUP ****/
 
 #popup {
@@ -82,7 +87,12 @@ button:active {
   grid-template-rows: 1fr 1fr 1fr;
 }
 
-#direction {
+#coordinates {
+  grid-row: 1;
+  margin: auto;
+}
+
+#touchArea {
   position: relative;
   grid-row: 2;
   justify-self: center;
@@ -94,7 +104,7 @@ button:active {
   background-color: var(--medium-gray);
 }
 
-#direction::before {
+#touchArea::before {
   position: absolute;
   display: grid;
   content: "";
@@ -108,7 +118,7 @@ button:active {
   transform: translate(-50%, -50%);
 }
 
-#direction::after {
+#touchArea::after {
   position: absolute;
   display: grid;
   content: "";
@@ -150,6 +160,11 @@ button:active {
   height: 80px;
   border: #787878 solid 3px;
   border-radius: 18%;
+}
+
+.action-button.active {
+  transform: scale(0.9);
+  background-color: black !important;
 }
 
 .action-button i {

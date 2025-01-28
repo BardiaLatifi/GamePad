@@ -11,6 +11,8 @@ export const globVar = {
 
   optionBtn: document.getElementById("optionBtn"),
 
+  touchArea: document.getElementById("touchArea"),
+
   // Action Button Variablse
   actBtn1: document.getElementById("actBtn1"),
   actBtn2: document.getElementById("actBtn2"),
