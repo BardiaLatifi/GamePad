@@ -52,10 +52,10 @@ export function setupControls() {
       const centerY = rect.height / 2;
   
       // Update movement states
-      handleMovement("right", xRelative > centerX + 10);  // 10px dead zone
-      handleMovement("left", xRelative < centerX - 10);
-      handleMovement("down", yRelative > centerY + 10);
-      handleMovement("up", yRelative < centerY - 10);
+      handleMovement("right", xRelative > centerX + 20);  // 10px dead zone
+      handleMovement("left", xRelative < centerX - 20);
+      handleMovement("down", yRelative > centerY + 30);
+      handleMovement("up", yRelative < centerY - 30);
   
       // Optional: Update direction text
       directionText.textContent = [
