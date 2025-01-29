@@ -122,14 +122,14 @@ export function preloadImages(imageSources) {
 export function bootScreen() {
   const canvasId = "canvas";
   const frameSources = [
-    "./assets/boot/boot1.jpg",
-    "./assets/boot/boot2.jpg",
-    "./assets/boot/boot3.jpg",
-    "./assets/boot/boot4.jpg",
-    "./assets/boot/boot5.jpg",
-    "./assets/boot/boot6.jpg",
-    "./assets/boot/boot7.jpg",
-    "./assets/boot/boot8.jpg",
+    "./assets/initialize/boot1.jpg",
+    "./assets/initialize/boot2.jpg",
+    "./assets/initialize/boot3.jpg",
+    "./assets/initialize/boot4.jpg",
+    "./assets/initialize/boot5.jpg",
+    "./assets/initialize/boot6.jpg",
+    "./assets/initialize/boot7.jpg",
+    "./assets/initialize/boot8.jpg",
 
   ];
   const frameDurations = [1200, 1200, 1000, 500, 500, 150, 2000];

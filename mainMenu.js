@@ -18,7 +18,7 @@ setupControls();
 
 export function drawBGImg() {
   const canvasId = "canvas";
-  const spriteSheetSrc = "./assets/bg/green-bg-sheet.png";
+  const spriteSheetSrc = "./assets/initialize/green-bg-sheet.png";
   const totalFrames = 48;
   const fps = 10;
   const x = 0;
@@ -43,7 +43,7 @@ export function pressOptionBtn() {
   canvas2.style.top = "50%";
   canvas2.style.transform = "translate(-50%, -50%)"; 
 
-  const src = "./assets/text/Press-Button.png"
+  const src = "./assets/initialize/Press-Button.png"
   const speed = 0.02;
   const min = 0.1;
   const max = 1;
