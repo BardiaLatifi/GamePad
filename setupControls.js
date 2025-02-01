@@ -82,32 +82,6 @@ export function setupControls() {
     }
   }
 
-  function handleActionButton(e) {
-    const button = e.target.closest(".action-button");
-    if (!button) return;
-  
-    // Add visual feedback
-    button.classList.add("active");
-    
-    switch(button.id) {
-      case "actBtn1":
-        player.src = "./assets/act1.png";
-        break;
-      case "actBtn2":
-        player.src = "./assets/act2.png";
-        break;
-      case "actBtn3":
-        player.src = "./assets/act3.png";
-        break;
-    }
-    e.preventDefault();
-  }
-  function resetButtonStyle(e) {
-    const button = e.target.closest(".action-button");
-    if (button) button.classList.remove("active");
-    e.preventDefault();
-  }
-
   touchArea.addEventListener("touchstart", handleTouchArea);
   touchArea.addEventListener("touchmove", handleTouchMove);
   touchArea.addEventListener("touchend", handleTouchEnd);
@@ -117,10 +91,42 @@ export function setupControls() {
   // BUTTONS
   // ---------------------------
 
-  // Update event listeners for buttons
-  [globVar.actBtn1, globVar.actBtn2, globVar.actBtn3].forEach(button => {
-    button.addEventListener("touchstart", handleActionButton);
-    button.addEventListener("touchend", resetButtonStyle);
-    button.addEventListener("touchcancel", resetButtonStyle);
+  class ButtonHandler {
+    constructor() {
+      this.actions = { A: null, B: null, C: null };
+    }
+  
+    onButtonPress(button, callback) {
+      this.actions[button] = callback;
+    }
+  
+    handleButtonPress(button) {
+      if (this.actions[button]) this.actions[button]();
+    }
+  }
+  
+  const buttons = new ButtonHandler();
+
+    // Set up actions for each button
+  buttons.onButtonPress("A", () => {
+    if (globVar.currentEnv === "in-game") player.src = "./assets/act1.png";
   });
+
+  buttons.onButtonPress("B", () => {
+    if (globVar.currentEnv === "main-menu") console.log("ACCEPT");
+    if (globVar.currentEnv === "in-game") player.src = "./assets/act2.png";
+  });
+
+  buttons.onButtonPress("C", () => {
+    if (globVar.currentEnv === "main-menu") console.log("BACK");
+    if (globVar.currentEnv === "in-game") player.src = "./assets/act3.png";
+  });
+
+  globVar.actBtn1.addEventListener("touchstart", () => buttons.handleButtonPress("A"));
+  globVar.actBtn1.addEventListener("mousedown", () => buttons.handleButtonPress("A"));
+  globVar.actBtn2.addEventListener("touchstart", () => buttons.handleButtonPress("B"));
+  globVar.actBtn2.addEventListener("mousedown", () => buttons.handleButtonPress("B"));
+  globVar.actBtn3.addEventListener("touchstart", () => buttons.handleButtonPress("C"));
+  globVar.actBtn3.addEventListener("mousedown", () => buttons.handleButtonPress("C"));
 }
+
