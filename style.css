@@ -73,11 +73,29 @@ button:active {
   background-color: #101010;
 }
 
-#canvas {
+#canvasCont::after {
+  content: "";
   width: 615px;
   height: 346px;
-  margin: auto auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #000000;
+}
+
+canvas {
+  width: 615px;
+  height: 346px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+#canvas2 {
+  z-index: 101;
 }
 
 /* Left Side */

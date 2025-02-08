@@ -1,5 +1,5 @@
 import { globVar } from "./globVar.js";
-import { animateImages } from "./animation.js";
+import { SpriteAnimator } from "./animations.js";
 
 export function mobileView() {
 const portrait = window.matchMedia("(orientation: portrait)");
