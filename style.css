@@ -8,9 +8,9 @@
 }
 
 :root {
-  --light-gray: #959595; 
-  --medium-gray: #6e6e6e; 
-  --dark-gray: #454545; 
+  --light-gray: #959595;
+  --medium-gray: #6e6e6e;
+  --dark-gray: #454545;
 }
 
 body {
@@ -22,7 +22,7 @@ button {
   background-color: var(--dark-gray);
   color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; 
+  -webkit-tap-highlight-color: transparent;
   transition: background-color 0.3s;
 }
 
@@ -31,7 +31,8 @@ button:active {
   transform: scale(0.9);
 }
 
-#touchArea, .action-button {
+#touchArea,
+.action-button {
   touch-action: none;
   user-select: none;
 }
@@ -96,6 +97,17 @@ canvas {
 
 #canvas2 {
   z-index: 101;
+}
+
+#popupImg {
+  display: none;
+  width: 615px;
+  height: 346px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
 }
 
 /* Left Side */
@@ -196,7 +208,7 @@ canvas {
   align-self: flex-start;
   margin: 0 0 2.5em 1em;
   background-color: var(--dark-gray);
-  }
+}
 
 .action-button {
   width: 80px;
@@ -211,21 +223,26 @@ canvas {
 }
 
 .action-button svg {
-  pointer-events: none; /* Crucial for touch handling */
-  transition: transform 0.1s ease; /* Match button transition */
+  pointer-events: none;
+  /* Crucial for touch handling */
+  transition: transform 0.1s ease;
+  /* Match button transition */
   vertical-align: middle;
 }
 
 .action-button.active svg {
-  transform: scale(0.9); /* Scale icon with button */
+  transform: scale(0.9);
+  /* Scale icon with button */
 }
 
 #actBtn1 svg {
   stroke: rgb(88, 203, 173);
 }
+
 #actBtn2 svg {
   stroke: rgb(212, 162, 187);
 }
+
 #actBtn3 svg {
   stroke: rgb(165, 175, 233);
 }
@@ -237,4 +254,3 @@ canvas {
 }
 
 /* FullScreen */
-

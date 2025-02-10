@@ -5,19 +5,19 @@ export class SpriteAnimator {
     this.ctx = this.canvas.getContext("2d");
     this.canvas.width = 640;
     this.canvas.height = 360;
-    
+
     // Sprite configuration
     this.spriteSheet = new Image();
     this.spriteSheet.src = spriteSheetSrc;
     this.totalFrames = totalFrames;
     this.fps = fps;
-    
+
     // Animation state
     this.currentFrame = 0;
     this.lastFrameTime = 0;
     this.animationId = null;
     this.isLoaded = false;
-    
+
     // Fade effects
     this.fadeOpacity = 0;
     this.fadeDuration = 1000; // ms
@@ -72,11 +72,11 @@ export class SpriteAnimator {
   async #fade(targetOpacity) {
     const startOpacity = this.fadeOpacity;
     const startTime = Date.now();
-    
+
     return new Promise((resolve) => {
       const animate = () => {
         const progress = (Date.now() - startTime) / this.fadeDuration;
-        
+
         if (progress < 1) {
           this.fadeOpacity = startOpacity + (targetOpacity - startOpacity) * progress;
           requestAnimationFrame(animate);
@@ -85,7 +85,7 @@ export class SpriteAnimator {
           resolve();
         }
       };
-      
+
       animate();
     });
   }
@@ -110,4 +110,64 @@ export class SpriteAnimator {
   }
 }
 
+export class BlinkingFadeAnimator {
+  constructor() {
+    this.isBlinking = false;
+    this.startTime = 0;
+    this.animationFrame = null;
+    this.currentOpacity = 0;
+
+    // Configuration
+    this.duration = 5000; // Full blink cycle duration
+    this.maxOpacity = 0.8;
+    this.easing = this.easeInOutSine;
+  }
+
+  // Updated easing for full blink cycle
+  easeInOutSine = (t) => Math.sin(Math.PI * t);
+  easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+  start(targetElement, callback) {
+    if (this.isBlinking) return;
+
+    this.isBlinking = true;
+    this.startTime = performance.now();
+
+    const animate = (timestamp) => {
+      if (!this.isBlinking) return;
+
+      const elapsed = timestamp - this.startTime;
+      const progress = (elapsed % this.duration) / this.duration;
+
+      // Full blink cycle calculation
+      const phase = progress < 0.5 ?
+        progress * 2 :          // Fade in phase
+        2 - (progress * 2);     // Fade out phase
+
+      this.currentOpacity = this.easing(phase) * this.maxOpacity;
+
+      if (callback) {
+        callback(this.currentOpacity);
+      } else if (targetElement) {
+        targetElement.style.opacity = this.currentOpacity;
+      }
+
+      this.animationFrame = requestAnimationFrame(animate);
+    };
+
+    this.animationFrame = requestAnimationFrame(animate);
+  }
+
+  stop() {
+    this.isBlinking = false;
+    if (this.animationFrame) {
+      cancelAnimationFrame(this.animationFrame);
+    }
+    this.currentOpacity = 0;
+
+    if (this.targetElement) {
+      this.targetElement.style.opacity = 0;
+    }
+  }
+}
 

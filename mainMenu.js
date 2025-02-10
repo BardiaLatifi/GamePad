@@ -1,25 +1,33 @@
 import { globVar } from "./globVar.js";
 import { setupControls, movement } from "./setupControls.js"
-import { SpriteAnimator } from "./animations.js";
+import { SpriteAnimator, BlinkingFadeAnimator } from "./animations.js";
 import { preloadImages } from "./initialize.js";
 
-const gameAnimation = new SpriteAnimator(
-  'canvas', 
+// Background for starting main menu
+const greenBg = new SpriteAnimator(
+  'canvas',
   './assets/initialize/green-bg-sheet.png',
   48,        // Total frames
   12,        // FPS
 );
 
-
-
-
+// Blinking fade Press Option button
+const popupImg = document.getElementById("popupImg");
+const blinkAnimator = new BlinkingFadeAnimator();
 
 export function mainMenu() {
-  // Start both animations
-  gameAnimation.fadeIn();
-  globVar.optionBtn.addEventListener("mousedown", () => {
-    gameAnimation.fadeOut();
-    
-  });
 
+  // green background sprite sheet animation
+  greenBg.fadeIn();
+
+  // Start blinking
+  popupImg.style.display = "block";
+  popupImg.src = "./assets/initialize/Press-Button.png"
+  blinkAnimator.start(popupImg);
+
+  globVar.optionBtn.addEventListener("mousedown", () => {
+    greenBg.fadeOut();
+    // Stop blinking
+    blinkAnimator.stop();
+  });
 }
