@@ -5,8 +5,8 @@ import { preloadImages } from "./initialize.js";
 
 // Background for starting main menu
 const greenBg = new SpriteAnimator(
-  'canvas',
-  './assets/initialize/green-bg-sheet.png',
+  "canvas",
+  "./assets/initialize/green-bg-sheet.png",
   48,        // Total frames
   12,        // FPS
 );
@@ -25,9 +25,14 @@ export function mainMenu() {
   popupImg.src = "./assets/initialize/Press-Button.png"
   blinkAnimator.start(popupImg);
 
-  globVar.optionBtn.addEventListener("mousedown", () => {
+  globVar.optionBtn.addEventListener("click", () => {
     greenBg.fadeOut();
     // Stop blinking
-    blinkAnimator.stop();
-  });
+    blinkAnimator.stop(
+      setTimeout(() => {
+        globVar.currentEnvHandler("in-game")
+      }, 1500)
+    );
+  })
+
 }

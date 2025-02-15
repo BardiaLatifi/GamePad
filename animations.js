@@ -1,3 +1,60 @@
+export class FadeAnimator {
+  constructor(canvas, image) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.image = image;
+    this.opacity = 0;
+    this.isAnimating = false;
+    this.lastTime = 0;
+  }
+
+  // Main animation loop
+  animate(timestamp) {
+    if (!this.isAnimating) return;
+
+    const deltaTime = timestamp - this.lastTime;
+    this.lastTime = timestamp;
+
+    this.update(deltaTime);
+    this.draw();
+
+    requestAnimationFrame((ts) => this.animate(ts));
+  }
+
+  draw() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.globalAlpha = this.opacity;
+    this.ctx.drawImage(
+      this.image,
+      0, 0, this.image.width, this.image.height,
+      0, 0, this.canvas.width, this.canvas.height
+    );
+    this.ctx.globalAlpha = 1;
+  }
+
+  startFade(direction, onComplete) {
+    this.direction = direction;
+    this.isAnimating = true;
+    this.lastTime = performance.now();
+    this.onComplete = onComplete;
+    this.animate(performance.now());
+  }
+
+  update(deltaTime) {
+    const speed = 0.0008;
+    this.opacity += this.direction * speed * deltaTime;
+    this.opacity = Math.max(0, Math.min(1, this.opacity));
+
+    if ((this.direction === 1 && this.opacity >= 1) ||
+      (this.direction === -1 && this.opacity <= 0)) {
+      this.isAnimating = false;
+      if (this.onComplete) this.onComplete();
+    }
+  }
+
+
+}
+
 export class SpriteAnimator {
   constructor(canvasId, spriteSheetSrc, totalFrames, fps) {
     // Fixed canvas dimensions and position
@@ -116,14 +173,17 @@ export class BlinkingFadeAnimator {
     this.startTime = 0;
     this.animationFrame = null;
     this.currentOpacity = 0;
+    this.targetElement = null; // Track the target element
 
     // Configuration
-    this.duration = 5000; // Full blink cycle duration
-    this.maxOpacity = 0.8;
+    this.duration = 3000; // Full blink cycle duration
+    this.maxOpacity = 1;
+    this.minOpacity = 0.1; // Added minOpacity
     this.easing = this.easeInOutSine;
+    this.fadeOutDuration = 500; // Duration for fading out to 0 opacity
   }
 
-  // Updated easing for full blink cycle
+  // Easing functions
   easeInOutSine = (t) => Math.sin(Math.PI * t);
   easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 
@@ -132,6 +192,7 @@ export class BlinkingFadeAnimator {
 
     this.isBlinking = true;
     this.startTime = performance.now();
+    this.targetElement = targetElement; // Store the target element
 
     const animate = (timestamp) => {
       if (!this.isBlinking) return;
@@ -144,12 +205,13 @@ export class BlinkingFadeAnimator {
         progress * 2 :          // Fade in phase
         2 - (progress * 2);     // Fade out phase
 
-      this.currentOpacity = this.easing(phase) * this.maxOpacity;
+      // Calculate opacity based on minOpacity and maxOpacity
+      this.currentOpacity = this.minOpacity + (this.maxOpacity - this.minOpacity) * this.easing(phase);
 
       if (callback) {
         callback(this.currentOpacity);
-      } else if (targetElement) {
-        targetElement.style.opacity = this.currentOpacity;
+      } else if (this.targetElement) {
+        this.targetElement.style.opacity = this.currentOpacity;
       }
 
       this.animationFrame = requestAnimationFrame(animate);
@@ -158,16 +220,43 @@ export class BlinkingFadeAnimator {
     this.animationFrame = requestAnimationFrame(animate);
   }
 
-  stop() {
+  stop(onComplete) {
+    if (!this.isBlinking) return;
+
     this.isBlinking = false;
     if (this.animationFrame) {
       cancelAnimationFrame(this.animationFrame);
     }
-    this.currentOpacity = 0;
 
-    if (this.targetElement) {
-      this.targetElement.style.opacity = 0;
-    }
+    // Smoothly fade out to 0 opacity
+    const fadeOutStartTime = performance.now();
+    const initialOpacity = this.currentOpacity;
+
+    const fadeOut = (timestamp) => {
+      const elapsed = timestamp - fadeOutStartTime;
+      const progress = Math.min(elapsed / this.fadeOutDuration, 1);
+
+      // Interpolate opacity from initialOpacity to 0
+      this.currentOpacity = initialOpacity * (1 - progress);
+
+      if (this.targetElement) {
+        this.targetElement.style.opacity = this.currentOpacity;
+      }
+
+      if (progress < 1) {
+        // Continue fading out
+        requestAnimationFrame(fadeOut);
+      } else {
+        // Optional: Hide the element after fading out
+        this.targetElement.style.display = "none";
+
+        // Invoke the onComplete callback if provided
+        if (onComplete && typeof onComplete === "function") {
+          onComplete();
+        }
+      }
+    };
+
+    requestAnimationFrame(fadeOut);
   }
 }
-

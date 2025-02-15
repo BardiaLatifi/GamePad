@@ -28,9 +28,9 @@ function update() {
   playerX = Math.max(halfWidth, Math.min(playerX, globVar.canvasWidth - halfWidth));
   playerY = Math.max(halfHeight, Math.min(playerY, globVar.canvasHeight - halfHeight));
 }
-  
+
 function draw(ctx) {
-  ctx.drawImage(player, Math.floor(playerX) - 16 , Math.floor(playerY) - 16, player.width, player.height);
+  ctx.drawImage(player, Math.floor(playerX) - 16, Math.floor(playerY) - 16, player.width, player.height);
 }
 
 function render() {
@@ -42,6 +42,7 @@ function render() {
     requestAnimationFrame(render);
   }
 }
+
 
 export function startControllerTest() {
   if (!isAnimating) {
